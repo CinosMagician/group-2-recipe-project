@@ -22,13 +22,12 @@ function getFood(item) {
 getFood(userQuery);
 
 const request = {
-  textQuery: "Tacos in Mountain View",
+  textQuery: "pizza in sydney australia",
   fields: ["displayName", "businessStatus", 'formattedAddress', 'photos'],
   includedType: "restaurant",
-  locationBias: { lat: 37.4161493, lng: -122.0812166 },
   isOpenNow: true,
   language: "en-US",
-  maxResultCount: 8,
+  maxResultCount: 5,
   minRating: 3.2,
   region: "us",
   useStrictTypeFiltering: false,
