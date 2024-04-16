@@ -19,7 +19,7 @@ function getRecipeList(item) {
         alert(`Error: ${response.statusText}`);
       }
     })
-}
+};
 
 function displayRecipeOptions (data) {
   // Need to empty the DOM HTML elements
@@ -33,7 +33,7 @@ function displayRecipeOptions (data) {
     mealImage = data.meals[i].strMealThumb;
     console.log(`${mealId} ${mealName} ${mealImage}`);
   }
-}
+};
 
 function getIngredients (mealId) {
   let apiRecipeIdUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
@@ -55,7 +55,7 @@ function getIngredients (mealId) {
         alert(`Error: ${response.statusText}`);
       }
     })
-}
+};
 
 function getRecipe (mealId) {
   let apiRecipeIdUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
@@ -86,6 +86,8 @@ function getRecipe (mealId) {
         alert(`Error: ${response.statusText}`);
       }
     })
+  };
+
 function getRecipeList(item) {
   let apiRecipeUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${item.replaceAll(' ', '_')}`;
   fetch(apiRecipeUrl)
@@ -100,7 +102,7 @@ function getRecipeList(item) {
         alert(`Error: ${response.statusText}`);
       }
     })
-}
+};
 
 function displayRecipeOptions (data) {
   // Need to empty the DOM HTML elements
@@ -114,7 +116,7 @@ function displayRecipeOptions (data) {
     mealImage = data.meals[i].strMealThumb;
     console.log(`${mealId} ${mealName} ${mealImage}`);
   }
-}
+};
 
 function getIngredients (mealId) {
   let apiRecipeIdUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
@@ -136,7 +138,7 @@ function getIngredients (mealId) {
         alert(`Error: ${response.statusText}`);
       }
     })
-}
+};
 
 function getRecipe (mealId) {
   let apiRecipeIdUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
@@ -150,7 +152,7 @@ function getRecipe (mealId) {
         alert(`Error: ${response.statusText}`);
       }
     })
-}
+};
 
 getRecipeList(userQuery);
 
@@ -182,7 +184,7 @@ function userRestaurantInquiry (dish, suburb, country) {
   };
 
   doSomething();
-}
+};
 
 
 userRestaurantInquiry(userDish, userSuburb, userCountry);
