@@ -1,5 +1,9 @@
 let userQuery = "tomato";
 let dish = 'pizza';
+let userDish = 'pizza';
+let userSuburb = 'cabramatta';
+let userCountry = 'australia';
+
 
 function getRecipeList(item) {
   let apiRecipeUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${item.replaceAll(' ', '_')}`;
@@ -82,31 +86,106 @@ function getRecipe (mealId) {
         alert(`Error: ${response.statusText}`);
       }
     })
+function getRecipeList(item) {
+  let apiRecipeUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${item.replaceAll(' ', '_')}`;
+  fetch(apiRecipeUrl)
+    .then( function (response) {
+      if (response.ok) {
+        response.json().then(function (data) {
+          console.log(data);
+          displayRecipeOptions(data);
+          return data;
+        });
+      } else {
+        alert(`Error: ${response.statusText}`);
+      }
+    })
+}
+
+function displayRecipeOptions (data) {
+  // Need to empty the DOM HTML elements
+  let mealName = '';
+  let mealId = 0;
+  let mealImage = '';
+  // Using a for loop, create buttons that will show recipe name, recipe photo and a list of ingredients.
+  for (let i = 0; (i < 5) && (i < data.meals.length); i++) {
+    mealName = data.meals[i].strMeal;
+    mealId = data.meals[i].idMeal;
+    mealImage = data.meals[i].strMealThumb;
+    console.log(`${mealId} ${mealName} ${mealImage}`);
+  }
+}
+
+function getIngredients (mealId) {
+  let apiRecipeIdUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
+  let ingredientsList = [];
+  fetch(apiRecipeIdUrl)
+    .then( function (response) {
+      if (response.ok) {
+        response.json().then(function (data) {
+          for (let i = 1; i <= 20; i++) {
+            if (data.meals[0][`strIngredient${i}`] === '') {
+              break;
+            } else {
+              ingredientsList.push(data.meals[0][`strMeasure${i}`] + ' ' + data.meals[0][`strIngredient${i}`]);
+            }
+          }
+          console.log(ingredientsList);
+        });
+      } else {
+        alert(`Error: ${response.statusText}`);
+      }
+    })
+}
+
+function getRecipe (mealId) {
+  let apiRecipeIdUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
+  fetch(apiRecipeIdUrl)
+    .then( function (response) {
+      if (response.ok) {
+        response.json().then(function (data) {
+          console.log(data.meals[0].strInstructions);
+        });
+      } else {
+        alert(`Error: ${response.statusText}`);
+      }
+    })
 }
 
 getRecipeList(userQuery);
 
+function userRestaurantInquiry (dish, suburb, country) {
 // Mimi struggled with reading the documentation and asked Frank Fu for assistance
-const request = {
-  textQuery: `${dish} in ${encodeURIComponent(suburb)}`,
-  fields: ["displayName", "businessStatus", 'formattedAddress', 'photos'],
-  includedType: "restaurant",
-  isOpenNow: true,
-  language: "en-US",
-  maxResultCount: 5,
-  minRating: 3.5,
+  request = {
+    textQuery: `${dish} in ${suburb} ${country})`,
+    fields: ["displayName", "businessStatus", 'formattedAddress', 'photos'],
+    includedType: "restaurant",
+    isOpenNow: true,
+    language: "en-US",
+    maxResultCount: 5,
+    minRating: 3.5,
 
-  useStrictTypeFiltering: false,
-};
-//@ts-ignore
+    useStrictTypeFiltering: false,
+  };
+  //@ts-ignore
 
-var doSomething = async function () {
-  const { Place } = await google.maps.importLibrary("places");
-  const { places } = await Place.searchByText(request);
-  console.log(places);
-};
+  let placeDetails;
 
-doSomething();
+  var doSomething = async function () {
+    const { Place } = await google.maps.importLibrary("places");
+    const { places } = await Place.searchByText(request);
+    console.log(places);
+    for (const place of places) {
+      placeDetails = [place.Fg.displayName, place.Fg.formattedAddress];
+      console.log(placeDetails);
+    }
+  };
+
+  doSomething();
+}
+
+
+userRestaurantInquiry(userDish, userSuburb, userCountry);
 
 // modal scripts
 document.addEventListener('DOMContentLoaded', () => {
