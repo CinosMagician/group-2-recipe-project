@@ -32,6 +32,7 @@ function getRecipeList(item) {
 
 function generateRecipeData (data) {
   // Need to empty the DOM HTML elements
+  recipeIndex = 0;
   let mealName = '';
   let mealId = 0;
   let mealImage = '';
@@ -57,7 +58,7 @@ function displayRecipeData(recipeData, recipeIndex) {
   recipeCardLocation.innerHTML = `
   <h1>${recipeData[recipeIndex].mealName}
     <button class="js-btn-trigger tooltip" data-target="favouriteItem" id="favouriteItem">⭐
-      <span class="tooltiptext">Add to Favourites</span>
+      <span class="tooltiptext">Add or Remove From Favourites</span>
     </button>
   </h1>
   <div>
