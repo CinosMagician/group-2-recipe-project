@@ -88,6 +88,22 @@ function getRecipe (mealId) {
     })
   };
 
+function getRecipeList(item) {
+  let apiRecipeUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${item.replaceAll(' ', '_')}`;
+  fetch(apiRecipeUrl)
+    .then( function (response) {
+      if (response.ok) {
+        response.json().then(function (data) {
+          console.log(data);
+          displayRecipeOptions(data);
+          return data;
+        });
+      } else {
+        alert(`Error: ${response.statusText}`);
+      }
+    })
+};
+
 function displayRecipeOptions (data) {
   // Need to empty the DOM HTML elements
   let mealName = '';
@@ -117,6 +133,20 @@ function getIngredients (mealId) {
             }
           }
           console.log(ingredientsList);
+        });
+      } else {
+        alert(`Error: ${response.statusText}`);
+      }
+    })
+};
+
+function getRecipe (mealId) {
+  let apiRecipeIdUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
+  fetch(apiRecipeIdUrl)
+    .then( function (response) {
+      if (response.ok) {
+        response.json().then(function (data) {
+          console.log(data.meals[0].strInstructions);
         });
       } else {
         alert(`Error: ${response.statusText}`);
