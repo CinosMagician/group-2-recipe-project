@@ -1,6 +1,9 @@
 let userQuery = "tomato";
-let dish = 'pizza';
-let 
+let userDish = 'pizza';
+let userSuburb = 'cabramatta';
+let userCountry = 'australia';
+var request;
+
 
 function getRecipeList(item) {
   let apiRecipeUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${item.replaceAll(' ', '_')}`;
@@ -70,27 +73,38 @@ function getRecipe (mealId) {
 
 getRecipeList(userQuery);
 
+function userRestaurantInquiry (dish, suburb, country) {
 // Mimi struggled with reading the documentation and asked Frank Fu for assistance
-const request = {
-  textQuery: `${dish} in ${encodeURIComponent(suburb)}`,
-  fields: ["displayName", "businessStatus", 'formattedAddress', 'photos'],
-  includedType: "restaurant",
-  isOpenNow: true,
-  language: "en-US",
-  maxResultCount: 5,
-  minRating: 3.5,
+  request = {
+    textQuery: `${dish} in ${suburb} ${country})`,
+    fields: ["displayName", "businessStatus", 'formattedAddress', 'photos'],
+    includedType: "restaurant",
+    isOpenNow: true,
+    language: "en-US",
+    maxResultCount: 5,
+    minRating: 3.5,
 
-  useStrictTypeFiltering: false,
-};
-//@ts-ignore
+    useStrictTypeFiltering: false,
+  };
+  //@ts-ignore
 
-var doSomething = async function () {
-  const { Place } = await google.maps.importLibrary("places");
-  const { places } = await Place.searchByText(request);
-  console.log(places);
-};
+  let placeDetails;
 
-doSomething();
+  var doSomething = async function () {
+    const { Place } = await google.maps.importLibrary("places");
+    const { places } = await Place.searchByText(request);
+    console.log(places);
+    for (const place of places) {
+      placeDetails = [place.Fg.displayName, place.Fg.formattedAddress];
+      console.log(placeDetails);
+    }
+  };
+
+  doSomething();
+}
+
+
+userRestaurantInquiry(userDish, userSuburb, userCountry);
 
 // modal scripts
 document.addEventListener('DOMContentLoaded', () => {
