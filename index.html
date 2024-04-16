@@ -12,7 +12,7 @@
         <header>
             <nav class="navbar mb-5">
                 <!-- Navbar & buttons & modal -->
-                <h1 class="title">LOGO</h1>
+                <h1 class="title mt-3 ml-3">ReciPlaces</h1>
                 <div class="navbar-end">
                     <a role="button" class="button js-modal-trigger" data-target="modal-js-ingredient">Search by Ingredient</a>
                     <a role="button" class="button js-modal-trigger" data-target="modal-js-places">Placees to Eat</a>
@@ -44,12 +44,7 @@
     <!-- Instructions -->
     <div class="column has-background-danger">
         <h1>Step by Step Instructions</h1>
-        <p>TEST TEST TEST</p>
-        <p>TEST TEST TEST</p>
-        <p>TEST TEST TEST</p>
-        <p>TEST TEST TEST</p>
-        <p>TEST TEST TEST</p>
-        <p>TEST TEST TEST</p>
+        <ol id="instructionsList"></ol>
     </div>
 </main>
 
@@ -73,12 +68,10 @@
               <footer class="modal-card-foot">
                 <div class="buttons">
                   <button class="button is-success">Submit</button>
-                  <button class="button is-danger">Cancel</button>
                 </div>
               </footer>
             </div>
           </div>
-        <button class="modal-close is-large" aria-label="close"></button>
       </div>
 
       <!-- Modal for Places -->
@@ -95,15 +88,13 @@
               <footer class="modal-card-foot">
                 <div class="buttons">
                   <button class="button is-success">Submit</button>
-                  <button class="button is-danger">Cancel</button>
                 </div>
               </footer>
             </div>
           </div>
-        <button class="modal-close is-large" aria-label="close"></button>
       </div>
 
-      <!-- Mimi struggled with reading the documentation and asked Frank Fu for assistance -->
+<!-- Mimi struggled with reading the documentation and asked Frank Fu for assistance -->
       <script>
         (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
           key: 'AIzaSyAi3zf-pBvF0jpkEuRsq48SEsOGGl3dYBI',
@@ -112,6 +103,6 @@
           // Add other bootstrap parameters as needed, using camel case.
         });
       </script>
-      <script src="./assets/js/script.js"></script> 
+    <script src="./assets/js/script.js"></script> 
 </body>
 </html>
