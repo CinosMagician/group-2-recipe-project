@@ -1,8 +1,9 @@
 let userQuery = "tomato";
+let dish = 'pizza';
 let userDish = 'pizza';
 let userSuburb = 'cabramatta';
 let userCountry = 'australia';
-var request;
+
 
 function getRecipeList(item) {
   let apiRecipeUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${item.replaceAll(' ', '_')}`;
@@ -63,6 +64,23 @@ function getRecipe (mealId) {
       if (response.ok) {
         response.json().then(function (data) {
           console.log(data.meals[0].strInstructions);
+
+          // Code for placing the instructions on the page
+          const instructionsArea = document.getElementById("instructionsList");
+          if (instructionsArea) {
+            instructionsArea.innerHTML = '';
+
+            let splitLines = data.meals[0].strInstructions.match(/[^\r\n]+/g);
+            for (const line of splitLines) {
+              console.log(line);
+              const listItem = document.createElement('li');
+              listItem.textContent = line;
+              instructionsArea.appendChild(listItem);
+            }
+          } else {
+            console.error("Element with ID 'instructionsList' not found.");
+
+          }
         });
       } else {
         alert(`Error: ${response.statusText}`);
