@@ -1,86 +1,95 @@
-let userSearchOption = 'ingredient'
 let userQuery = "tomato";
+let dish = 'pizza';
+let 
 
-function getFood(item) {
-    let apiRecipeUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?`;
-    if (userSearchOption === 'ingredient') {
-        apiRecipeUrl += `i=${item}`;
-    } else {
-        apiRecipeUrl += `s=${item}`;
-    }
-    console.log(apiRecipeUrl);
-    fetch(apiRecipeUrl)
-        .then( function (response) {
-            if (response.ok) {
-                console.log(response.json());
-                    } else {
-                        alert(`Error: ${response.statusText}`);
-                    }
-        })
+function getRecipeList(item) {
+  let apiRecipeUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${item.replaceAll(' ', '_')}`;
+  fetch(apiRecipeUrl)
+    .then( function (response) {
+      if (response.ok) {
+        response.json().then(function (data) {
+          console.log(data);
+          displayRecipeOptions(data);
+          return data;
+        });
+      } else {
+        alert(`Error: ${response.statusText}`);
+      }
+    })
 }
 
-getFood(userQuery);
+function displayRecipeOptions (data) {
+  // Need to empty the DOM HTML elements
+  let mealName = '';
+  let mealId = 0;
+  let mealImage = '';
+  // Using a for loop, create buttons that will show recipe name, recipe photo and a list of ingredients.
+  for (let i = 0; (i < 5) && (i < data.meals.length); i++) {
+    mealName = data.meals[i].strMeal;
+    mealId = data.meals[i].idMeal;
+    mealImage = data.meals[i].strMealThumb;
+    console.log(`${mealId} ${mealName} ${mealImage}`);
+  }
+}
 
-// function getRestaurant(dish, suburb, country) {
-//     let location = encodeURIComponent(suburb + ' ' + country)
-//     console.log(location);
-//     let apiRestaurantUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${dish}%20restaurant%20in%20${location}&key=AIzaSyAi3zf-pBvF0jpkEuRsq48SEsOGGl3dYBI`
-//     console.log(apiRestaurantUrl);
-//     fetch(apiRestaurantUrl)
-//         .then( function (response) {
-//             if (response.ok) {
-//                 console.log(response.json());
-//                     } else {
-//                         alert(`Error: ${response.statusText}`);
-//                     }
-//         })
-// }
+function getIngredients (mealId) {
+  let apiRecipeIdUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
+  let ingredientsList = [];
+  fetch(apiRecipeIdUrl)
+    .then( function (response) {
+      if (response.ok) {
+        response.json().then(function (data) {
+          for (let i = 1; i <= 20; i++) {
+            if (data.meals[0][`strIngredient${i}`] === '') {
+              break;
+            } else {
+              ingredientsList.push(data.meals[0][`strMeasure${i}`] + ' ' + data.meals[0][`strIngredient${i}`]);
+            }
+          }
+          console.log(ingredientsList);
+        });
+      } else {
+        alert(`Error: ${response.statusText}`);
+      }
+    })
+}
 
-// let map;
-// let service;
-// let infowindow;
+function getRecipe (mealId) {
+  let apiRecipeIdUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
+  fetch(apiRecipeIdUrl)
+    .then( function (response) {
+      if (response.ok) {
+        response.json().then(function (data) {
+          console.log(data.meals[0].strInstructions);
+        });
+      } else {
+        alert(`Error: ${response.statusText}`);
+      }
+    })
+}
 
-// function initMap() {
-//   const sydney = new google.maps.LatLng(-33.867, 151.195);
+getRecipeList(userQuery);
 
-//   infowindow = new google.maps.InfoWindow();
-//   map = new google.maps.Map(document.getElementById("map"), {
-//     center: sydney,
-//     zoom: 15,
-//   });
+// Mimi struggled with reading the documentation and asked Frank Fu for assistance
+const request = {
+  textQuery: `${dish} in ${encodeURIComponent(suburb)}`,
+  fields: ["displayName", "businessStatus", 'formattedAddress', 'photos'],
+  includedType: "restaurant",
+  isOpenNow: true,
+  language: "en-US",
+  maxResultCount: 5,
+  minRating: 3.5,
+  useStrictTypeFiltering: false,
+};
+//@ts-ignore
 
-//   const request = {
-//     query: "Museum of Contemporary Art Australia",
-//     fields: ["name", "geometry"],
-//   };
+var doSomething = async function () {
+  const { Place } = await google.maps.importLibrary("places");
+  const { places } = await Place.searchByText(request);
+  console.log(places);
+};
 
-//   service = new google.maps.places.PlacesService(map);
-//   service.findPlaceFromQuery(request, (results, status) => {
-//     if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-//       for (let i = 0; i < results.length; i++) {
-//         createMarker(results[i]);
-//       }
-
-//       map.setCenter(results[0].geometry.location);
-//     }
-//   });
-// }
-
-// function createMarker(place) {
-//   if (!place.geometry || !place.geometry.location) return;
-
-//   const marker = new google.maps.Marker({
-//     map,
-//     position: place.geometry.location,
-//   });
-
-//   google.maps.event.addListener(marker, "click", () => {
-//     infowindow.setContent(place.name || "");
-//     infowindow.open(map);
-//   });
-// }
-
-// window.initMap = initMap;
+doSomething();
 
 // modal scripts
 document.addEventListener('DOMContentLoaded', () => {
