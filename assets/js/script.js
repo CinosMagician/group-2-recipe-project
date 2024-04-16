@@ -79,6 +79,7 @@ const request = {
   language: "en-US",
   maxResultCount: 5,
   minRating: 3.5,
+
   useStrictTypeFiltering: false,
 };
 //@ts-ignore
