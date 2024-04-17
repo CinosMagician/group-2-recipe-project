@@ -8,6 +8,7 @@ let recipeData = [];
 let favRecipes = JSON.parse(localStorage.getItem("favourites")) || [];
 // This index is for the Pseduo Carousel
 let recipeIndex = 0;
+let favRecipeIndex = 0;
 
 
 function getRecipeList(item) {
@@ -57,24 +58,28 @@ function displayRecipeData(recipeData, recipeIndex) {
   const recipeCardLocation = document.getElementById("recipeCard");
   recipeCardLocation.innerHTML = `
   <h1>${recipeData[recipeIndex].mealName}
-    <button class="js-btn-trigger tooltip" data-target="favouriteItem" id="favouriteItem">⭐
+    <button class="js-nextbtn-trigger tooltip" data-target="favouriteItem" id="favouriteItem">⭐
       <span class="tooltiptext">Add or Remove From Favourites</span>
     </button>
   </h1>
   <div>
-    <button class="button centeredItem js-btn-trigger" data-target="indexLeftButton" id="indexLeftButton"><</button>
+    <button class="button centeredItem js-nextbtn-trigger" data-target="indexLeftButton" id="indexLeftButton"><</button>
     <img src="${recipeData[recipeIndex].mealImage}" id="imageSize">
-    <button class="button centeredItem js-btn-trigger" data-target="indexRightButton" id="indexRightButton">></button>
+    <button class="button centeredItem js-nextbtn-trigger" data-target="indexRightButton" id="indexRightButton">></button>
   </div>
   <h2>Ingredients:</h2>
   <ul id="recipeIngredients"></ul>
   `;
 
   // Button Control for Next and Prev
-  (document.querySelectorAll('.js-btn-trigger') || []).forEach(($trigger) => {
+  (document.querySelectorAll('.js-nextbtn-trigger') || []).forEach(($trigger) => {
     const btn = $trigger.dataset.target;
     $trigger.addEventListener('click', () => {
-      indexControl(btn);
+      if(btn === `favouriteItem`){
+        addFav();
+      } else {
+        indexControl(btn);
+      }
     });
   });
 
@@ -92,7 +97,7 @@ function indexControl(direction){
 };
 
 function nextIndex(){
-  if (recipeIndex === 4 || recipeIndex === recipeData.length){
+  if (recipeIndex === recipeData.length - 1){
     recipeIndex = 0;
   } else {
     recipeIndex++;
@@ -103,8 +108,8 @@ function nextIndex(){
 };
 
 function prevIndex(){
-  if (recipeIndex === 0 && recipeData.length === 5){
-    recipeIndex = 4;
+  if (recipeIndex === 0){
+    recipeIndex = recipeData.length - 1;
   } else {
     recipeIndex--;
   }
@@ -112,8 +117,180 @@ function prevIndex(){
   console.log(recipeIndex);
   console.log(`prev`);
 };
-
 // End of Next and Prev Functions
+
+// add Fav Function
+function addFav(){
+  let newFav = recipeData[recipeIndex];
+  for (let i = 0; i < favRecipes.length; i++){
+    if (newFav.mealName === favRecipes[i].mealName){
+      favRecipes.splice(i, 1);
+      localStorage.setItem("favourites", JSON.stringify(favRecipes));
+      alert(`Removed from Favourites`);
+      console.log(`Removed`);
+      generateFavouriteRecipiesBtn();
+      return;
+    }
+  }
+  favRecipes.push(newFav);
+  localStorage.setItem("favourites", JSON.stringify(favRecipes));
+  console.log(`Added`);
+  alert(`Added to Favourites`);
+  generateFavouriteRecipiesBtn();
+};
+// add Fav Function End
+
+function generateFavouriteRecipiesBtn(){
+  const favBtnArea = document.getElementById("favItems");
+  favBtnArea.innerHTML = ``;
+  for (let i = 0; i < favRecipes.length; i++){
+    // const favBtnArea = document.getElementById("favItems");
+    let newFavBtn = document.createElement("a");
+    newFavBtn.classList.add("button", "js-fav-trigger");
+    newFavBtn.setAttribute("role", "button");
+    newFavBtn.setAttribute("id", `${favRecipes[i].mealName}`);
+    newFavBtn.setAttribute("data-target", `${favRecipes[i].mealName}`);
+    newFavBtn.textContent = favRecipes[i].mealName;
+    favBtnArea.appendChild(newFavBtn);
+  }
+  // Button Control
+  (document.querySelectorAll('.js-fav-trigger') || []).forEach(($trigger) => {
+    const favBtn = $trigger.dataset.target;
+    $trigger.addEventListener('click', () => {
+      for (let i = 0; i < favRecipes.length; i++){
+        if(favBtn === favRecipes[i].mealName){
+          console.log(`Found at index:${i}`);
+          favRecipeIndex = i;
+          displayFavRecipeData(favRecipes, favRecipeIndex);
+          return;
+        } else {
+          console.log(`Not Found at index:${i}`);
+        }
+      }
+    });
+  });
+};
+// Function to generate from the favs list
+
+// Next and Prev Fav Functions
+function favIndexControl(direction){
+  if (direction === 'indexRightButtonFav'){
+    nextFavIndex();
+  } else if (direction === 'indexLeftButtonFav'){
+    prevFavIndex();
+  }
+};
+
+function nextFavIndex(){
+  if (favRecipeIndex === favRecipes.length - 1){
+    favRecipeIndex = 0;
+  } else {
+    favRecipeIndex++;
+  }
+  displayFavRecipeData(favRecipes, favRecipeIndex);
+  console.log(favRecipeIndex);
+  console.log(`next`);
+};
+
+function prevFavIndex(){
+  if (favRecipeIndex === 0){
+    favRecipeIndex = favRecipes.length - 1;
+  } else {
+    favRecipeIndex--;
+  }
+  displayFavRecipeData(favRecipes, favRecipeIndex);
+  console.log(favRecipeIndex);
+  console.log(`prev`);
+};
+// End of Next and Prev Fav Functions
+
+// Fav in favdata Function
+function favAddFav(){
+  let newFav = favRecipes[favRecipeIndex];
+  for (let i = 0; i < favRecipes.length; i++){
+    if (newFav.mealName === favRecipes[i].mealName){
+      favRecipes.splice(i, 1);
+      localStorage.setItem("favourites", JSON.stringify(favRecipes));
+      alert(`Removed from Favourites`);
+      console.log(`Removed`);
+      generateFavouriteRecipiesBtn();
+      // This checks to see if the index is at 0 and also if the length is at 0 to clear all data
+      if(favRecipeIndex === 0 && favRecipes.length === 0){
+        // Run a function that hides all data, just hard coding everything to be blank for now
+        const recipeCardLocation = document.getElementById("recipeCard");
+        const ingredientArea = document.getElementById("recipeIngredients");
+        const instructionsArea = document.getElementById("instructionsList");
+        ingredientArea.innerHTML = ``;
+        recipeCardLocation.innerHTML = ``;
+        instructionsArea.innerHTML = ``;
+        favRecipeIndex = 0;
+        console.log(`no items left in fav`);
+        console.log(favRecipes, favRecipeIndex);
+        return;
+        // this checks if the index is 0 but not an empty favRecipies Array
+      } else if (favRecipeIndex === 0){
+          favRecipeIndex = favRecipes.length - 1;
+          displayFavRecipeData(favRecipes, favRecipeIndex);
+          console.log(`first item was removed, moving to last item`);
+          console.log(favRecipes, favRecipeIndex);
+          return;
+      } else {
+          // Otherwise it will just go to the previous fav item.
+          favRecipeIndex = favRecipeIndex - 1;
+          displayFavRecipeData(favRecipes, favRecipeIndex);
+          console.log(`moving to previous fav item`);
+          console.log(favRecipes, favRecipeIndex);
+          return;
+      }
+    }
+  }
+  favRecipes.push(newFav);
+  localStorage.setItem("favourites", JSON.stringify(favRecipes));
+  console.log(`Added`);
+  alert(`Added to Favourites`);
+  generateFavouriteRecipiesBtn();
+};
+// Fav in favdata Function End
+
+
+function displayFavRecipeData(favRecipes, favRecipeIndex) {
+  console.log(favRecipes[favRecipeIndex]);
+
+  const recipeCardLocation = document.getElementById("recipeCard");
+  recipeCardLocation.innerHTML = `
+  <h1>${favRecipes[favRecipeIndex].mealName}
+    <button class="js-btn-trigger tooltip" data-target="favouriteItem" id="favouriteItem">⭐
+      <span class="tooltiptext">Add or Remove From Favourites</span>
+    </button>
+  </h1>
+  <div>
+    <button class="button centeredItem js-btn-trigger" data-target="indexLeftButtonFav" id="indexLeftButtonFav"><</button>
+    <img src="${favRecipes[favRecipeIndex].mealImage}" id="imageSize">
+    <button class="button centeredItem js-btn-trigger" data-target="indexRightButtonFav" id="indexRightButtonFav">></button>
+  </div>
+  <h2>Ingredients:</h2>
+  <ul id="recipeIngredients"></ul>
+  `;
+
+  // Button Control for Next and Prev
+  (document.querySelectorAll('.js-btn-trigger') || []).forEach(($trigger) => {
+    const btn = $trigger.dataset.target;
+    $trigger.addEventListener('click', () => {
+      if(btn === `favouriteItem`){
+        favAddFav();
+      } else {
+        favIndexControl(btn);
+      }
+    });
+  });
+
+  getRecipe(favRecipes[favRecipeIndex].mealId);
+  getIngredients(favRecipes[favRecipeIndex].mealId);
+};
+// Function to generate from the favs list
+// Function to generate from the favs list
+// Function to generate from the favs list
+// Function to generate from the favs list
 
 
 function getIngredients (mealId) {
@@ -183,6 +360,7 @@ function getRecipe (mealId) {
 
 // Manual Function calls
 // getRecipeList(userQuery);
+generateFavouriteRecipiesBtn();
 
 
 // TEST FUNCTION REMOVE LATER
