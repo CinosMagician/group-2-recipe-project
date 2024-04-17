@@ -1,153 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Group 2</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
-    <link rel="stylesheet" href="./assets/css/style.css">
-    </head>
-    
-    <body>
-        <header>
-            <nav class="navbar mb-5">
-                <!-- Navbar & buttons & modal -->
-                <h1 class="title mt-3 ml-3">ReciPlaces</h1>
-                <div class="navbar-end">
-                    <a role="button" class="button js-modal-trigger" data-target="modal-js-ingredient">Search by Ingredient</a>
-                    <a role="button" class="button js-modal-trigger" data-target="modal-js-places">Places to Eat</a>
-                </div>
-            </nav>
-        </header>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group 2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+<link rel="stylesheet" href="./assets/css/style.css">
+</head>
 
 
-<main class="columns content has-text-centered">
-    <!-- Favourites -->
-    <!-- when we click on favourites button -->
-    <div class="column has-background-primary is-one-quarter">
-        <h1>Favourites</h1>
-        <p>TEST TEST TEST</p>
-        <p>TEST TEST TEST</p>
-        <p>TEST TEST TEST</p>
-        <p>TEST TEST TEST</p>
-    </div>
+<body>
+<header>
+  <!-- Navbar & buttons & modal // <i class="fa-regular fa-flag"></i> -->
+<nav class="navContainer">
 
-    <!-- Recipe ?? cards ??-->
-    <div class="column has-background-info">
-        <h1>Recipes</h1>
-        <p>Show image and ingredients here</p>
-        <p>TEST TEST TEST</p>
-        <p>TEST TEST TEST</p>
-        <p>TEST TEST TEST</p>
-    </div>
 
-    <!-- Instructions -->
-    <div class="column has-background-danger">
-        <h1>Step by Step Instructions</h1>
-        <ol id="instructionsList"></ol>
-    </div>
+<div id="logo">
+  <i class="fa-solid fa-house"></i><h1>ReciPlaces</h1>
+</div>
+
+<div class="btnContainer">
+<ul>
+<li><a role="button" class="button js-modal-trigger" data-target="modal-js-ingredient">Search by Ingredient</a></li>
+<li><a role="button" class="button js-modal-trigger" data-target="modal-js-places">Places to Eat</a></li>
+</ul>
+</nav>
+</header>
+
+
+
+<main class="hero">
+
+<div class="columns content has-text-centered">
+<!-- Favourites -->
+<!-- when we click on favourites button -->
+<div class="column is-one-quarter">
+<h2>Favourites</h2>
+<p>TEST TEST TEST</p>
+<p>TEST TEST TEST</p>
+<p>TEST TEST TEST</p>
+<p>TEST TEST TEST</p>
+</div>
+
+<!-- Recipe ?? cards ??-->
+<div class="column">
+<h2>Recipes</h2>
+<p>Show image and ingredients here</p>
+<p>TEST TEST TEST</p>
+<p>TEST TEST TEST</p>
+<p>TEST TEST TEST</p>
+</div>
+
+<!-- Instructions -->
+<div class="column">
+<h2>Step by Step Instructions</h2>
+<ol id="instructionsList"></ol>
+<p>TEST TEST TEST</p>
+<p>TEST TEST TEST</p>
+<p>TEST TEST TEST</p>
+</div>
+</div>
+
 </main>
 
 
 
-<footer>
-    Made by Mimi, Lachlan and Rhianna
+
+<!-- Modal for Ingredient Search -->
+<div class="modal" id="modal-js-ingredient">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">Search by Ingredient</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<section class="modal-card-body">
+<!-- Content ... -->
+</section>
+<footer class="modal-card-foot">
+<div class="buttons">
+<button class="button is-success">Submit</button>
+</div>
 </footer>
-      
-    <!-- Modal for Ingredient Search -->
-    <div class="modal" id="modal-js-ingredient">
-        <div class="modal-background"></div>
-            <div class="modal-card">
-              <header class="modal-card-head">
-                <p class="modal-card-title">Search by Ingredient</p>
-                <button class="delete" aria-label="close"></button>
-              </header>
-              
-              <section class="modal-card-body">
-                <!-- Content ... -->
-                <form id="ingredient-form">
-                  <div class="field">
-                    <label class="label" for="ingredient">Ingredient</label>
-                    <div class="control">
-                      <input class="input" type="text" id="ingredient" placeholder="Enter an ingredient" list="suggestions-item">
-                      <datalist id="suggestions-item">
-                        <option value="Tofu">
-                        <option value="Beef">
-                        <option value="Chicken">
-                        <option value="Pork">
-                        <option value="Salmon">
-                      </datalist>
-                    </div>
-                  </div>
-                </form>
-              </section>
-              <footer class="modal-card-foot">
-                <div class="buttons">
-                  <button class="button is-success">Submit</button>
-                </div>
-              </footer>
-            </div>
-          </div>
-      </div>
+</div>
+</div>
+</div>
 
-      <!-- Modal for Places -->
-      <div class="modal" id="modal-js-places">
-        <div class="modal-background"></div>
-            <div class="modal-card">
-              <header class="modal-card-head">
-                <p class="modal-card-title">Places to Eat</p>
-                <button class="delete" aria-label="close"></button>
-              </header>
-              <section class="modal-card-body">
-                <!-- Content ... -->
-                <form id="dish-form">
-                  <div class="field">
-                    <label class="label" for="dish">Dish</label>
-                    <div class="control">
-                      <input class="input" type="text" id="dish" placeholder="Enter a dish you are craving" list="suggestions-dish">
-                      <datalist id="suggestions-dish">
-                        <option value="Pizza">
-                        <option value="Pasta">
-                        <option value="Burgers">
-                        <option value="Stir Fry">
-                        <option value="Malatang">
-                      </datalist>
-                    </div>
-                  </div>
+<!-- Modal for Places -->
+<div class="modal" id="modal-js-places">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">Places to Eat</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<section class="modal-card-body">
+<!-- Content ... -->
+</section>
+<footer class="modal-card-foot">
+<div class="buttons">
+<button class="button is-success">Submit</button>
+</div>
+</footer>
+</div>
+</div>
+</div>
 
-                  <div class="field">
-                    <label class="label" for="suburb">Suburb</label>
-                    <div class="control">
-                      <input class="input" type="text" id="suburb" placeholder="Enter your suburb">
-                    </div>
-                  </div>
 
-                  <div class="field">
-                    <label class="label" for="country">Country</label>
-                    <div class="control">
-                      <input class="input" type="text" id="country" placeholder="Enter your country">
-                    </div>
-                  </div>
-                </form>
-              </section>
-              <footer class="modal-card-foot">
-                <div class="buttons">
-                  <button class="button is-success">Submit</button>
-                </div>
-              </footer>
-            </div>
-          </div>
-      </div>
+<footer class="footer">
+<div class="content has-text-centered"><i class="fa-solid fa-wand-magic-sparkles"></i>
+<p>Made by <br>Mimi, Lachlan and Rhianna<br><a href="#">Group 2 Project</a></p>
+</div>
+
+</footer>
 
 <!-- Mimi struggled with reading the documentation and asked Frank Fu for assistance -->
-      <script>
-        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-          key: 'AIzaSyAi3zf-pBvF0jpkEuRsq48SEsOGGl3dYBI',
-          v: "weekly",
-          // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
-          // Add other bootstrap parameters as needed, using camel case.
-        });
-      </script>
-    <script src="./assets/js/script.js"></script> 
+<script>
+(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+key: 'AIzaSyAi3zf-pBvF0jpkEuRsq48SEsOGGl3dYBI',
+v: "weekly",
+// Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+// Add other bootstrap parameters as needed, using camel case.
+});
+</script>
+<script src="./assets/js/script.js"></script> 
+<script src="https://kit.fontawesome.com/65b79940ed.js" crossorigin="anonymous"></script>
 </body>
 </html>
