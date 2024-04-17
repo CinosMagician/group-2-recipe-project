@@ -1,0 +1,7 @@
+*:not(path):not(g) {
+    color: lightblue !important;
+    background: blue !important;
+    outline: purple !important;
+
+    box-shadow: none !important;
+}

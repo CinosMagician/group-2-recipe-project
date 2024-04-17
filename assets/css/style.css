@@ -2,135 +2,80 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-    color: var(--myColor);
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
 :root {
-    --myColor: hsl(142, 26%, 38%);
+    --bkgColor: #DBDFDB;
+    --fontColor: #000023;
+    --popColor: #FE6400;
+    --bulma-skeleton-background: var(--bulma-border);
 }
 
 body {
-    background-color: hsl(145, 44%, 92%);
-    color: var(--myColor);
+    background-color: var(--bkgColor);
     height: 100vh;
+    
 }
 
+/* font styling */
+
+h2 {
+    font-size: 19px;
+    font-weight: bold;
+    color: var(--popColor);    
+}
+
+p {
+    color: var(--popColor);
+}
+
+i {
+    color:var(--popColor);
+}
 
 /* header styling */
-
+.logo {
+    position: relative;
+}
 
 .navContainer {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);  
-    position:relative;
+    justify-content: space-evenly;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);  
+    position:;
 }
 
-#logo {
-
-    align-items: flex-start;
-    height: 100px;
-}
-
-h1 {
-    padding: 10px;
-    font-size: 35px;
-    font-weight: bold;
-    color: var(--myColor);
-}
-
-
-.fa-solid {
-    padding: 10px;
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.btnContainer {
-    padding: 10px 10px;
-}
-
-.navContainer ul {
-    display: flex;
-    flex-direction: row-reverse;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-.navContainer ul li {
-    list-style: none;
-    position: relative;
-    margin: 0px 10px;
-    padding: 0px 2px;
-}
-
-.navContainer ul li a {
-    text-decoration: none;
-    font-size: 19px;
-}
 
 .button {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 30px;
-    width: 200px;
-    border: 1.5px solid green;
-    color: var(--myColor);
+    margin: 110px;
+    width: 300px;
+    border: 1px solid var(--fontColor);
+    color: var(--popColor)
   }
 
 .button:hover {
-    background-color: var(--myColor);
-    color: white;
+    background-color: var(--fontColor);
+    color: var(--bkgColor);
   }
-
-
 
 /* main page styling */
 
 .hero {
-    padding-bottom: 300px;
+    padding: 10px 10px;
+    background-color: var(--bkgColor);
 }
 
-.columns {
-    display: flex;
-    flex-direction: row;
-    float: inline;
-    border: 1.5px solid green;
-}
-
-.column h2 {
-    color: var(--myColor);
-    border: 10px darkgreen solid;
-}
-
-.column {
-    border: 10px darkgreen solid;
-    height: 50%;
+.hero-body {
+    background-color: var(--bkgColor);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);  
 }
 
 
-/* footer styling */
 .footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    position: relative;
-    width: 100%;
-   
+    background-color: var(--bkgColor);
 }
-
-.footer a {
-     text-decoration: none;
-    text-transform:uppercase;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);  
-}
-
-

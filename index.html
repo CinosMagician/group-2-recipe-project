@@ -1,129 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Group 2</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
-<link rel="stylesheet" href="./assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReciPlace</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <!-- Bulma CSS Link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+
+  <!-- favicon links -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon img 500 x 500 png.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon img 750 x 750 png.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- <link rel="stylesheet" href="./assets/css/debug.css"> -->
 </head>
 
-
 <body>
-<header>
-  <!-- Navbar & buttons & modal // <i class="fa-regular fa-flag"></i> -->
-<nav class="navContainer">
+  <header class="header-container fullwidth">
+    <nav class="navContainer p-5">
+      <div class="logo p-5">
+        <a href=".blank"><img src="./assets/logo/reciplace logo 750 x 750.png" height="50%" width="100%" alt="ReciPlace's logo and icon of fork and spoon"></a>
+        <!-- <iframe loading="eager"
+        style="position: relative; width: 100%; height: 100%; top: 0%; left: 0; border: none; padding: 0;margin: 0;"
+        src="./assets/logo/reciplace logo 750 x 750.png"
+        allowfullscreen="allowfullscreen" allow="fullscreen">
+      </iframe>  -->
+      </div>
+
+      <div class="btnContainer p-6">
+        <ul>
+          <li><a role="button" class="button js-modal-trigger" data-target="modal-js-ingredient">Search by
+              Ingredient</a></li>
+          <li><a role="button" class="button js-modal-trigger" data-target="modal-js-places">Places to Eat</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
 
-<div id="logo">
-  <i class="fa-solid fa-house"></i><h1>ReciPlaces</h1>
-</div>
+  <!-- hero: http://bulma.io/documentation/layout/hero/ -->
+  <main class="hero is-fullheight-with-navbar">
+    <div class="hero-body is-info m-6">
+      <div class="columns is-mobile is-variable">
+        <div
+          class="column is-3 is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
+          <div class="notification">
+          <h2 class="title is-6 ">Favourites</h2>
+          <p class="subtitle">This column is only 200px wide.</p>
+        </div>
+      </div>
 
-<div class="btnContainer">
-<ul>
-<li><a role="button" class="button js-modal-trigger" data-target="modal-js-ingredient">Search by Ingredient</a></li>
-<li><a role="button" class="button js-modal-trigger" data-target="modal-js-places">Places to Eat</a></li>
-</ul>
-</nav>
-</header>
+
+        <div
+          class="column is-3 is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
+          <div class="notification">
+          <h2 class="title is-6">Recipe</h2>
+          <p class="subtitle">This column is only 200px wide.</p>
+        </div>
+      </div>
 
 
-
-<main class="hero">
-
-<div class="columns content has-text-centered">
-<!-- Favourites -->
-<!-- when we click on favourites button -->
-<div class="column is-one-quarter">
-<h2>Favourites</h2>
-<p>TEST TEST TEST</p>
-<p>TEST TEST TEST</p>
-<p>TEST TEST TEST</p>
-<p>TEST TEST TEST</p>
-</div>
-
-<!-- Recipe ?? cards ??-->
-<div class="column">
-<h2>Recipes</h2>
-<p>Show image and ingredients here</p>
-<p>TEST TEST TEST</p>
-<p>TEST TEST TEST</p>
-<p>TEST TEST TEST</p>
-</div>
-
-<!-- Instructions -->
-<div class="column">
-<h2>Step by Step Instructions</h2>
-<ol id="instructionsList"></ol>
-<p>TEST TEST TEST</p>
-<p>TEST TEST TEST</p>
-<p>TEST TEST TEST</p>
-</div>
-</div>
-
-</main>
+        <div
+          class="column is-3 is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
+          <div class="notification">
+          <h2 class="title is-6">Step by Step Ingredients</h2>
+          <p class="subtitle">This column is only 200px wide.</p>
+        </div>
+      </div>
+      </div>
+      </section>
+    </div><!-- hero end div -->
+  </main>
 
 
 
+  <!-- Modal for Ingredient Search -->
+  <div class="modal" id="modal-js-ingredient">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Search by Ingredient</p>
+        <button class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons">
+          <button class="button is-success">Submit</button>
+        </div>
+      </footer>
+    </div>
+  </div>
+  </div>
 
-<!-- Modal for Ingredient Search -->
-<div class="modal" id="modal-js-ingredient">
-<div class="modal-background"></div>
-<div class="modal-card">
-<header class="modal-card-head">
-<p class="modal-card-title">Search by Ingredient</p>
-<button class="delete" aria-label="close"></button>
-</header>
-<section class="modal-card-body">
-<!-- Content ... -->
-</section>
-<footer class="modal-card-foot">
-<div class="buttons">
-<button class="button is-success">Submit</button>
-</div>
-</footer>
-</div>
-</div>
-</div>
-
-<!-- Modal for Places -->
-<div class="modal" id="modal-js-places">
-<div class="modal-background"></div>
-<div class="modal-card">
-<header class="modal-card-head">
-<p class="modal-card-title">Places to Eat</p>
-<button class="delete" aria-label="close"></button>
-</header>
-<section class="modal-card-body">
-<!-- Content ... -->
-</section>
-<footer class="modal-card-foot">
-<div class="buttons">
-<button class="button is-success">Submit</button>
-</div>
-</footer>
-</div>
-</div>
-</div>
+  <!-- Modal for Places -->
+  <div class="modal" id="modal-js-places">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Places to Eat</p>
+        <button class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons">
+          <button class="button is-success">Submit</button>
+        </div>
+      </footer>
+    </div>
+  </div>
+  </div>
 
 
-<footer class="footer">
-<div class="content has-text-centered"><i class="fa-solid fa-wand-magic-sparkles"></i>
-<p>Made by <br>Mimi, Lachlan and Rhianna<br><a href="#">Group 2 Project</a></p>
-</div>
 
-</footer>
+  <footer class="footer">
+    <div class="content has-text-centered"><i class="fa-solid fa-wand-magic-sparkles"></i>
+      <p>Made by Mimi, Lachlan & Rhianna</p>
+    </div>
 
-<!-- Mimi struggled with reading the documentation and asked Frank Fu for assistance -->
-<script>
-(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-key: 'AIzaSyAi3zf-pBvF0jpkEuRsq48SEsOGGl3dYBI',
-v: "weekly",
-// Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
-// Add other bootstrap parameters as needed, using camel case.
-});
-</script>
-<script src="./assets/js/script.js"></script> 
-<script src="https://kit.fontawesome.com/65b79940ed.js" crossorigin="anonymous"></script>
+  <div class="hero-foot">
+    <nav class="tabs is-boxed is-fullwidth">
+      <div class="container">
+        <ul>
+          <li class="is-active">
+            <a href="#">ReciPlace Project</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  </footer>
+
+  
+
+  <!-- Mimi struggled with reading the documentation and asked Frank Fu for assistance -->
+  <script>
+    (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
+      key: 'AIzaSyAi3zf-pBvF0jpkEuRsq48SEsOGGl3dYBI',
+      v: "weekly",
+      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+      // Add other bootstrap parameters as needed, using camel case.
+    });
+  </script>
+  <script src="./assets/js/script.js"></script>
+  <script src="https://kit.fontawesome.com/65b79940ed.js" crossorigin="anonymous"></script>
 </body>
+
 </html>
