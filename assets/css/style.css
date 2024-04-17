@@ -34,28 +34,33 @@ i {
     color:var(--popColor);
 }
 
-/* header styling */
-.logo {
-    position: relative;
+.image {
+    display: flex;
 }
+
+/* header styling */
+
 
 .navContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);  
-    position:;
+    position: relative;
 }
 
+.btnContainer {
+    justify-content: space-evenly;
+}
 
 .button {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 110px;
     width: 300px;
-    border: 1px solid var(--fontColor);
+    border: 0px solid var(--fontColor);
     color: var(--popColor)
+    
   }
 
 .button:hover {
@@ -66,7 +71,6 @@ i {
 /* main page styling */
 
 .hero {
-    padding: 10px 10px;
     background-color: var(--bkgColor);
 }
 
