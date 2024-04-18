@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <!-- HEAD -->
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,48 +13,50 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
   <!-- favicon links -->
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon img 500 x 500 png.png">
   <link rel="manifest" href="/site.webmanifest">
   <!-- Group Stylesheet -->
   <link rel="stylesheet" href="./assets/css/style.css">
 </head>
-    
+
 <body>
   <header class="header-container m-2">
     <nav class="navContainer">
       <div class="logo is-centered">
-        <figure class="image is-large mt-2 mb-2 ">
-          <img src="./assets/logo/reciplace logo 500 x 500 png.png" alt="ReciPlace's logo and icon of fork and spoon"></a>
+        <figure class="image is-small mt-2 mb-2 ">
+          <img src="./assets/logo/reciplace logo 500 x 500 png.png"
+            alt="ReciPlace's logo and icon of fork and spoon"></a>
         </figure>
       </div>
       <div class="button-container content">
         <ul>
-          <li class="btnList is-flex"><a role="button" class="button js-modal-trigger" data-target="modal-js-ingredient">Search Recipes by Ingredient</a></li>
-          <li class="content"><a role="button" class="button js-modal-trigger" data-target="modal-js-places">Places to Eat</a></li>
+          <li class="btnList is-flex"><a role="button" class="button js-modal-trigger"
+              data-target="modal-js-ingredient">Search Recipes by Ingredient</a></li>
+          <li class="content"><a role="button" class="button js-modal-trigger" data-target="modal-js-places">Places to
+              Eat</a></li>
           <a role="button" class="button js-test-trigger" data-target="test">TEST</a>
         </ul>
       </div>
     </nav>
   </header>
-
-<main>
-<!-- Favourites -->
-<!-- when we click on favourites button -->
-<!-- MAIN/BODY -->
+  <!-- Favourites -->
+  <!-- when we click on favourites button -->
+  <!-- MAIN/BODY -->
   <!-- hero: http://bulma.io/documentation/layout/hero/ -->
   <main
     class="hero is-3 is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
     <div class="hero-body w-6 align-items">
       <div
-        class="columns is-centered is-mobile is-variable is-3 is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd" id="recipe-display">
-        
+        class="columns is-centered is-mobile is-variable is-3 is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd"
+        id="recipe-display">
         <div class="column is-small">
           <div class="notification m-3 p-6">
-            <h2 class="title is-6 ">Favourites</h2>
+            <h2 class="title is-6">Favourites</h2>
             <p class="subtitle" id="favItems"></p>
-         
           </div>
         </div>
 
@@ -72,107 +74,118 @@
             <ol class="subtitle" id="instructionsList"></ol>
           </div>
         </div>
-    <!-- -------------------------------Restaurant Section------------------------------- -->
-    <div class="columns content has-text-centered is-hidden" id="restaurant-display">
-      <div class="column has-background-primary is-one-quarter">
-          <h1>Favourites</h1>
-          <div id="restaurant-favs">This is where the favourite restaurants appear</div>
       </div>
-      <div class="column has-background-info">
-          <h1>Restaurant Options</h1>
-          <div id="restaurant-options"></div>
-      </div>
-      <div class="column has-background-danger">
-          <h1>Restaurant Details</h1>
-          <div  id="restaurant-details"></div>
-      </div>
-    </div>
-      
-    <!-- Modal for Ingredient Search -->
-    <div class="modal" id="modal-js-ingredient">
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Recipes by Ingredient</p>
-          <button class="delete" aria-label="close"></button>
-        </header>
-    
-        <section class="modal-card-body">
-          <!-- Content ... -->
-          <form id="ingredient-form">
-            <div class="field">
-              <label class="label" for="ingredient">Ingredient</label>
-              <div class="control">
-                <input class="input" type="text" id="ingredient" placeholder="Enter an ingredient" list="suggestions-item">
-                <datalist id="suggestions-item">
-                  <option value="Tofu">
-                  <option value="Beef">
-                  <option value="Chicken">
-                  <option value="Pork">
-                  <option value="Salmon">
-                </datalist>
-              </div>
-            </div>
-          </form>
-        </section>
-        <footer class="modal-card-foot">
-          <div class="buttons">
-            <button class="button">Submit</button>
+      <!-- -------------------------------Restaurant Section------------------------------- -->
+      <div
+        class="columns is-centered is-mobile is-variable is-3 is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd is-hidden"
+        id="restaurant-display">
+        <div class="column is-small">
+          <div class="notification m-3 p-6">
+            <h2>Favourites</h2>
+            <div id="restaurant-favs">This is where the favourite restaurants appear</div>
           </div>
-        </footer>
-      </div>
-    </div>
-    </div>
-    
-    <!-- Modal for Places -->
-    <div class="modal" id="modal-js-places">
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Places to Eat</p>
-          <button class="delete" aria-label="close"></button>
-        </header>
-        <section class="modal-card-body">
-          <!-- Content ... -->
-          <form>
-            <div class="field">
-              <label class="label" for="dish">Dish</label>
-              <div class="control">
-                <input class="input" type="text" id="dish" placeholder="Enter a dish you are craving"
-                  list="suggestions-dish">
-                <datalist id="suggestions-dish">
-                  <option value="Pizza">
-                  <option value="Pasta">
-                  <option value="Burgers">
-                  <option value="Stir Fry">
-                  <option value="Malatang">
-                </datalist>
-              </div>
-            </div>
-    
-            <div class="field">
-              <label class="label" for="suburb">Suburb</label>
-              <div class="control">
-                <input class="input" type="text" id="suburb" placeholder="Enter your suburb">
-              </div>
-            </div>
-    
-            <div class="field">
-              <label class="label" for="country">Country</label>
-              <div class="control">
-                <input class="input" type="text" id="country" placeholder="Enter your country">
-              </div>
-            </div>
-          </form>
-        </section>
-        <footer class="modal-card-foot">
-          <div class="buttons">
-            <button class="button" id="dish-form">Submit</button>
+        </div>
+        <div class="column is-small">
+          <div class="notification m-3 p-6">
+            <h2 class="title is-6">Restaurant Options</h2>
+            <div id="restaurant-options"></div>
           </div>
-        </footer>
+        </div>
+        <div class="column is-small">
+          <div class="notification m-3 p-6">
+            <h2 class="title is-6">Restaurant Details</h2>
+            <div id="restaurant-details"></div>
+          </div>
+        </div>
       </div>
+
+      <!-- Modal for Ingredient Search -->
+      <div class="modal" id="modal-js-ingredient">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Recipes by Ingredient</p>
+            <button class="delete" aria-label="close"></button>
+          </header>
+
+          <section class="modal-card-body">
+            <!-- Content ... -->
+            <form id="ingredient-form">
+              <div class="field">
+                <label class="label" for="ingredient">Ingredient</label>
+                <div class="control">
+                  <input class="input" type="text" id="ingredient" placeholder="Enter an ingredient"
+                    list="suggestions-item">
+                  <datalist id="suggestions-item">
+                    <option value="Tofu">
+                    <option value="Beef">
+                    <option value="Chicken">
+                    <option value="Pork">
+                    <option value="Salmon">
+                  </datalist>
+                </div>
+              </div>
+            </form>
+          </section>
+          <footer class="modal-card-foot">
+            <div class="buttons">
+              <button class="button">Submit</button>
+            </div>
+          </footer>
+        </div>
+      </div>
+
     </div>
+  </main>
+  <!-- Modal for Places -->
+  <div class="modal" id="modal-js-places">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Places to Eat</p>
+        <button class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        <form>
+          <div class="field">
+            <label class="label" for="dish">Dish</label>
+            <div class="control">
+              <input class="input" type="text" id="dish" placeholder="Enter a dish you are craving"
+                list="suggestions-dish">
+              <datalist id="suggestions-dish">
+                <option value="Pizza">
+                <option value="Pasta">
+                <option value="Burgers">
+                <option value="Stir Fry">
+                <option value="Malatang">
+              </datalist>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="suburb">Suburb</label>
+            <div class="control">
+              <input class="input" type="text" id="suburb" placeholder="Enter your suburb">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="country">Country</label>
+            <div class="control">
+              <input class="input" type="text" id="country" placeholder="Enter your country">
+            </div>
+          </div>
+        </form>
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons">
+          <button class="button is-success" id="dish-form">Submit</button>
+        </div>
+      </footer>
     </div>
+  </div>
+  </div>
 
 
 
@@ -207,7 +220,7 @@
   </script>
   <script src="./assets/js/script.js"></script>
   <!-- try comment out later -->
-  <script src="https://kit.fontawesome.com/65b79940ed.js" crossorigin="anonymous"></script> 
+  <script src="https://kit.fontawesome.com/65b79940ed.js" crossorigin="anonymous"></script>
 </body>
 <!-- BODY -->
 
