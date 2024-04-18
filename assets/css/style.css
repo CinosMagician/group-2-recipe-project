@@ -14,7 +14,6 @@
 body {
     background-color: var(--bkgColor);
     height: 100vh;
-    
 }
 
 /* font styling */
@@ -43,21 +42,31 @@ i {
 .navContainer {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);  
     position: relative;
+    background-color: var(--fontColor);
 }
 
 /* .btnContainer { */
     /* justify-content: space-evenly; */
 /* } */
 
-.button { 
+.modalBtnContainer {
+    align-items: center;
+}
+
+.modalButton { 
     /* display: flex;
     flex-direction: row;
     flex-wrap: wrap; */
+    height: 50px;
     width: 300px;
-    border: 0px solid var(--fontColor);
+    border: 1px solid white;
     color: var(--popColor)
-    
-  }
+}
+
+.favButton {
+    margin-bottom: 0.5rem;
+    width: 300px;
+}
 
 .button:hover {
     background-color: var(--fontColor);
@@ -86,10 +95,18 @@ i {
     max-height: 400px;
 }
 
+.limitImageSize {
+    max-height: 100px;
+}
+
 .centeredItem {
     position: relative;
     top: 165px;
 }
+
+/* .column {
+    display: flex;
+} */
 
 /* Tooltip container Example from W3Schools*/
 .tooltip {

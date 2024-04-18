@@ -24,22 +24,16 @@
 </head>
 
 <body>
-  <header class="header-container m-2">
-    <nav class="navContainer">
-      <div class="logo is-centered">
-        <figure class="image is-small mt-2 mb-2 ">
-          <img src="./assets/logo/reciplace logo 500 x 500 png.png"
-            alt="ReciPlace's logo and icon of fork and spoon"></a>
-        </figure>
-      </div>
-      <div class="button-container content">
-        <ul>
-          <li class="btnList is-flex"><a role="button" class="button js-modal-trigger"
-              data-target="modal-js-ingredient">Search Recipes by Ingredient</a></li>
-          <li class="content"><a role="button" class="button js-modal-trigger" data-target="modal-js-places">Places to
-              Eat</a></li>
-          <a role="button" class="button js-test-trigger" data-target="test">TEST</a>
-        </ul>
+
+  <header class="header-container">
+    <nav class="navContainer navbar p-2">
+      <img class="image is-16-16 limitImageSize" src="./assets/favicon/favicon img 500 x 500 png.png" alt="ReciPlace's logo and icon of fork and spoon"></a>
+      <img class="image is-16-16 limitImageSize" src="./assets/logo/reciplacelogotext.png" alt="ReciPlace's logo and icon of fork and spoon"></a>
+      <div class="button-container content navbar-end modalBtnContainer">
+          <a role="button" class="button modalButton js-modal-trigger mr-4" data-target="modal-js-ingredient">Search Recipes by Ingredient</a>
+          <a role="button" class="button modalButton js-modal-trigger mr-2" data-target="modal-js-places">Places to Eat</a>
+          <!-- <a role="button" class="button modalButton js-test-trigger" data-target="test">TEST</a> -->
+
       </div>
     </nav>
   </header>
@@ -50,27 +44,25 @@
   <main
     class="hero is-3 is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
     <div class="hero-body w-6 align-items">
-      <div
-        class="columns is-centered is-mobile is-variable is-3 is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd"
-        id="recipe-display">
-        <div class="column is-small">
+      <div class="columns is-centered is-mobile is-variable is-3 is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd" id="recipe-display">        <div class="column is-one-quarter">
           <div class="notification m-3 p-6">
-            <h2 class="title is-6">Favourites</h2>
+            <h2 class="title is-8 has-text-centered">Favourites</h2>
+
             <p class="subtitle" id="favItems"></p>
           </div>
         </div>
 
-        <div class="column is-small">
+        <div class="column">
           <div class="notification m-3 p-6">
-            <h2 class="title is-6">Recipe</h2>
-            <p class="subtitle" id="recipeCard"></p>
+            <h2 class="title is-8 has-text-centered">Recipe</h2>
+            <p class="subtitle has-text-centered" id="recipeCard"></p>
             <p class="subtitle" class="image is-square" id="imageSize"></p>
           </div>
         </div>
 
-        <div class="column is-small">
+        <div class="column">
           <div class="notification m-3 p-6">
-            <h2 class="title is-6">Step by Step Instructions</h2>
+            <h2 class="title is-8 has-text-centered">Step by Step Instructions</h2>
             <ol class="subtitle" id="instructionsList"></ol>
           </div>
         </div>
@@ -98,45 +90,42 @@
           </div>
         </div>
       </div>
-
-      <!-- Modal for Ingredient Search -->
-      <div class="modal" id="modal-js-ingredient">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">Recipes by Ingredient</p>
-            <button class="delete" aria-label="close"></button>
-          </header>
-
-          <section class="modal-card-body">
-            <!-- Content ... -->
-            <form id="ingredient-form">
-              <div class="field">
-                <label class="label" for="ingredient">Ingredient</label>
-                <div class="control">
-                  <input class="input" type="text" id="ingredient" placeholder="Enter an ingredient"
-                    list="suggestions-item">
-                  <datalist id="suggestions-item">
-                    <option value="Tofu">
-                    <option value="Beef">
-                    <option value="Chicken">
-                    <option value="Pork">
-                    <option value="Salmon">
-                  </datalist>
-                </div>
-              </div>
-            </form>
-          </section>
-          <footer class="modal-card-foot">
-            <div class="buttons">
-              <button class="button">Submit</button>
-            </div>
-          </footer>
-        </div>
-      </div>
-
     </div>
   </main>
+    <!-- Modal for Ingredient Search -->
+    <div class="modal" id="modal-js-ingredient">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Recipes by Ingredient</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+    
+        <section class="modal-card-body">
+          <!-- Content ... -->
+          <form>
+            <div class="field">
+              <label class="label" for="ingredient">Ingredient</label>
+              <div class="control">
+                <input class="input" type="text" id="ingredient" placeholder="Enter an ingredient" list="suggestions-item">
+                <datalist id="suggestions-item">
+                  <option value="Tofu">
+                  <option value="Beef">
+                  <option value="Chicken">
+                  <option value="Pork">
+                  <option value="Salmon">
+                </datalist>
+              </div>
+            </div>
+          </form>
+        </section>
+        <footer class="modal-card-foot">
+          <div class="buttons">
+            <button class="button" id="ingredient-form">Submit</button>
+          </div>
+        </footer>
+      </div>
+    </div>
   <!-- Modal for Places -->
   <div class="modal" id="modal-js-places">
     <div class="modal-background"></div>
