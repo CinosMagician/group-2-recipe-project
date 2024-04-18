@@ -9,7 +9,6 @@
     --bkgColor: #DBDFDB;
     --fontColor: #000023;
     --popColor: #FE6400;
-    --bulma-skeleton-background: var(--bulma-border);
 }
 
 body {
@@ -42,21 +41,18 @@ i {
 
 
 .navContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);  
     position: relative;
 }
 
 .btnContainer {
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
 }
 
 .button {
-    display: flex;
+    /* display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: wrap; */
     width: 300px;
     border: 0px solid var(--fontColor);
     color: var(--popColor)
