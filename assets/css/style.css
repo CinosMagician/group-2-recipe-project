@@ -45,11 +45,11 @@ i {
     position: relative;
 }
 
-.btnContainer {
+/* .btnContainer { */
     /* justify-content: space-evenly; */
-}
+/* } */
 
-.button {
+.button { 
     /* display: flex;
     flex-direction: row;
     flex-wrap: wrap; */
