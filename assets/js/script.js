@@ -7,18 +7,35 @@ const userCountry = document.getElementById('country');
 const restOptEl = document.getElementById('restaurant-options');
 const restDetsEl = document.getElementById('restaurant-details');
 const restFavEl = document.getElementById('restaurant-favs');
+const userQuery = document.getElementById('ingredient');
+const recipeCardLocation = document.getElementById("recipeCard");
+const ingredientArea = document.getElementById("recipeIngredients");
+const instructionsArea = document.getElementById("instructionsList");
+const ingredientForm = document.getElementById("ingredient-form");
 let restFavs = JSON.parse(localStorage.getItem('restFavsList')) || [];
 let currentRest;
 let restOpts;
 
-let userQuery = "tomato";
-let dish = 'pizza';
 // Pseduo Recipies Carousel
 let recipeData = [];
 let favRecipes = JSON.parse(localStorage.getItem("favourites")) || [];
 // This index is for the Pseduo Carousel
 let recipeIndex = 0;
 let favRecipeIndex = 0;
+
+ingredientForm.addEventListener('click', function () { // Looks for when the form is submitted
+  restaurantDiv.classList.add('is-hidden');
+  recipeDiv.classList.remove('is-hidden'); // do not need to add an if statement as  it will not add the class if it already exists
+  if (userQuery.value === '') {
+    alert('Please make sure you enter an ingredient'); //If users leave the inquiries blank, it will alert the user and end the function
+    return;
+  }
+  // ingredientArea.innerHTML = ``;
+  // recipeCardLocation.innerHTML = ``;
+  instructionsArea.innerHTML = ``;
+  getRecipeList(userQuery.value); //run the function to display the restaurant options
+  userQuery.value = ''; // empty the form elements
+});
 
 function userRestaurantInquiry (dish, suburb, country) {
   request = { // Mimi struggled with reading the documentation and asked Frank Fu for assistance
@@ -311,7 +328,7 @@ function generateFavouriteRecipiesBtn(){
   for (let i = 0; i < favRecipes.length; i++){
     // const favBtnArea = document.getElementById("favItems");
     let newFavBtn = document.createElement("a");
-    newFavBtn.classList.add("button", "js-fav-trigger");
+    newFavBtn.classList.add("button", "favButton", "js-fav-trigger");
     newFavBtn.setAttribute("role", "button");
     newFavBtn.setAttribute("id", `${favRecipes[i].mealName}`);
     newFavBtn.setAttribute("data-target", `${favRecipes[i].mealName}`);
@@ -382,9 +399,6 @@ function favAddFav(){
       // This checks to see if the index is at 0 and also if the length is at 0 to clear all data
       if(favRecipeIndex === 0 && favRecipes.length === 0){
         // Run a function that hides all data, just hard coding everything to be blank for now
-        const recipeCardLocation = document.getElementById("recipeCard");
-        const ingredientArea = document.getElementById("recipeIngredients");
-        const instructionsArea = document.getElementById("instructionsList");
         ingredientArea.innerHTML = ``;
         recipeCardLocation.innerHTML = ``;
         instructionsArea.innerHTML = ``;
