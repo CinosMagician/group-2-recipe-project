@@ -372,39 +372,6 @@ generateFavouriteRecipiesBtn();
 });
 // TEST FUNCTION REMOVE LATER
 
-function userRestaurantInquiry (dish, suburb, country) {
-// Mimi struggled with reading the documentation and asked Frank Fu for assistance
-  request = {
-    textQuery: `${dish} in ${suburb} ${country})`,
-    fields: ["displayName", "businessStatus", 'formattedAddress', 'photos'],
-    includedType: "restaurant",
-    isOpenNow: true,
-    language: "en-US",
-    maxResultCount: 5,
-    minRating: 3.5,
-
-    useStrictTypeFiltering: false,
-  };
-  //@ts-ignore
-
-  let placeDetails;
-
-  var doSomething = async function () {
-    const { Place } = await google.maps.importLibrary("places");
-    const { places } = await Place.searchByText(request);
-    console.log(places);
-    for (const place of places) {
-      placeDetails = [place.Fg.displayName, place.Fg.formattedAddress];
-      console.log(placeDetails);
-    }
-  };
-
-  doSomething();
-};
-
-
-userRestaurantInquiry(userDish, userSuburb, userCountry);
-
 // modal scripts
 document.addEventListener('DOMContentLoaded', () => {
     // Functions to open and close a modal
@@ -448,8 +415,3 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 });
-
-
-
-
-
