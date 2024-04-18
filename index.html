@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group 2</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     </head>
     
@@ -14,8 +15,8 @@
                 <!-- Navbar & buttons & modal -->
                 <h1 class="title mt-3 ml-3">ReciPlaces</h1>
                 <div class="navbar-end">
-                    <a role="button" class="button js-modal-trigger" data-target="modal-js-ingredient">Search by Ingredient</a>
-                    <a role="button" class="button js-modal-trigger" data-target="modal-js-places">Placees to Eat</a>
+                    <a role="button" class="button js-modal-trigger" data-target="modal-js-ingredient">Recipes by Ingredient</a>
+                    <a role="button" class="button js-modal-trigger" data-target="modal-js-places">Places to Eat</a>
                     <!-- Test Button, remove after Modals have been added with js support -->
                     <a role="button" class="button js-test-trigger" data-target="test">TEST</a>
                     <!-- Test Button, remove after Modals have been added with js support -->
@@ -24,10 +25,11 @@
         </header>
 
 
-<main class="columns content has-text-centered">
+<main>
     <!-- Favourites -->
     <!-- when we click on favourites button -->
-    <div class="column has-background-primary is-one-quarter">
+    <div class="columns content has-text-centered" id="recipe-display">
+      <div class="column has-background-primary is-one-quarter">
         <h1>Favourites</h1>
         <p id="favItems"></p>
     </div>
@@ -36,10 +38,30 @@
     <div class="column has-background-info">
         <h1>Recipes</h1>
         <p id="recipeCard"></p>
-        <p class="image is-square" id="imageSize">
-          <!-- <img src="https://www.themealdb.com/images/media/meals/sypxpx1515365095.jpg" id="imageDisplay"> -->
-        </p>
+        <p class="image is-square" id="imageSize"></p>
     </div>
+      <!-- Instructions -->
+      <div class="column has-background-danger">
+          <h1>Step by Step Instructions</h1>
+          <ol id="instructionsList"></ol>
+      </div>
+    </div>
+    <!-- -------------------------------Restaurant Section------------------------------- -->
+    <div class="columns content has-text-centered is-hidden" id="restaurant-display">
+      <div class="column has-background-primary is-one-quarter">
+          <h1>Favourites</h1>
+          <div id="restaurant-favs">This is where the favourite restaurants appear</div>
+      </div>
+      <div class="column has-background-info">
+          <h1>Restaurant Options</h1>
+          <div id="restaurant-options"></div>
+      </div>
+      <div class="column has-background-danger">
+          <h1>Restaurant Details</h1>
+          <div  id="restaurant-details"></div>
+      </div>
+    </div>
+
 
     <!-- Instructions -->
     <div class="column has-background-danger">
@@ -50,7 +72,7 @@
 
 
 
-<footer>
+<footer class="footer has-text-centered pb-6">
     Made by Mimi, Lachlan and Rhianna
 </footer>
       
@@ -59,11 +81,27 @@
         <div class="modal-background"></div>
             <div class="modal-card">
               <header class="modal-card-head">
-                <p class="modal-card-title">Search by Ingredient</p>
+                <p class="modal-card-title">Recipes by Ingredient</p>
                 <button class="delete" aria-label="close"></button>
               </header>
+              
               <section class="modal-card-body">
                 <!-- Content ... -->
+                <form id="ingredient-form">
+                  <div class="field">
+                    <label class="label" for="ingredient">Ingredient</label>
+                    <div class="control">
+                      <input class="input" type="text" id="ingredient" placeholder="Enter an ingredient" list="suggestions-item">
+                      <datalist id="suggestions-item">
+                        <option value="Tofu">
+                        <option value="Beef">
+                        <option value="Chicken">
+                        <option value="Pork">
+                        <option value="Salmon">
+                      </datalist>
+                    </div>
+                  </div>
+                </form>
               </section>
               <footer class="modal-card-foot">
                 <div class="buttons">
@@ -84,10 +122,39 @@
               </header>
               <section class="modal-card-body">
                 <!-- Content ... -->
+                <form>
+                  <div class="field">
+                    <label class="label" for="dish">Dish</label>
+                    <div class="control">
+                      <input class="input" type="text" id="dish" placeholder="Enter a dish you are craving" list="suggestions-dish">
+                      <datalist id="suggestions-dish">
+                        <option value="Pizza">
+                        <option value="Pasta">
+                        <option value="Burgers">
+                        <option value="Stir Fry">
+                        <option value="Malatang">
+                      </datalist>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label class="label" for="suburb">Suburb</label>
+                    <div class="control">
+                      <input class="input" type="text" id="suburb" placeholder="Enter your suburb">
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label class="label" for="country">Country</label>
+                    <div class="control">
+                      <input class="input" type="text" id="country" placeholder="Enter your country">
+                    </div>
+                  </div>
+                </form>
               </section>
               <footer class="modal-card-foot">
                 <div class="buttons">
-                  <button class="button is-success">Submit</button>
+                  <button class="button is-success" id="dish-form">Submit</button>
                 </div>
               </footer>
             </div>
@@ -99,8 +166,7 @@
         (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
           key: 'AIzaSyAi3zf-pBvF0jpkEuRsq48SEsOGGl3dYBI',
           v: "weekly",
-          // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
-          // Add other bootstrap parameters as needed, using camel case.
+          // Someone decided to use Mimi's key all willy nilly so right now only Mimi can use it
         });
       </script>
     <script src="./assets/js/script.js"></script> 
