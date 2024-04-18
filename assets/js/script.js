@@ -1,193 +1,169 @@
-let userQuery = "tomato";
-let dish = 'pizza';
-let userDish = 'pizza';
-let userSuburb = 'cabramatta';
-let userCountry = 'australia';
-
-
-function getRecipeList(item) {
-  let apiRecipeUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${item.replaceAll(' ', '_')}`;
-  fetch(apiRecipeUrl)
-    .then( function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          console.log(data);
-          displayRecipeOptions(data);
-          return data;
-        });
-      } else {
-        alert(`Error: ${response.statusText}`);
-      }
-    })
-};
-
-function displayRecipeOptions (data) {
-  // Need to empty the DOM HTML elements
-  let mealName = '';
-  let mealId = 0;
-  let mealImage = '';
-  // Using a for loop, create buttons that will show recipe name, recipe photo and a list of ingredients.
-  for (let i = 0; (i < 5) && (i < data.meals.length); i++) {
-    mealName = data.meals[i].strMeal;
-    mealId = data.meals[i].idMeal;
-    mealImage = data.meals[i].strMealThumb;
-    console.log(`${mealId} ${mealName} ${mealImage}`);
-  }
-};
-
-function getIngredients (mealId) {
-  let apiRecipeIdUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
-  let ingredientsList = [];
-  fetch(apiRecipeIdUrl)
-    .then( function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          for (let i = 1; i <= 20; i++) {
-            if (data.meals[0][`strIngredient${i}`] === '') {
-              break;
-            } else {
-              ingredientsList.push(data.meals[0][`strMeasure${i}`] + ' ' + data.meals[0][`strIngredient${i}`]);
-            }
-          }
-          console.log(ingredientsList);
-        });
-      } else {
-        alert(`Error: ${response.statusText}`);
-      }
-    })
-};
-
-function getRecipe (mealId) {
-  let apiRecipeIdUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
-  fetch(apiRecipeIdUrl)
-    .then( function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          console.log(data.meals[0].strInstructions);
-
-          // Code for placing the instructions on the page
-          const instructionsArea = document.getElementById("instructionsList");
-          if (instructionsArea) {
-            instructionsArea.innerHTML = '';
-
-            let splitLines = data.meals[0].strInstructions.match(/[^\r\n]+/g);
-            for (const line of splitLines) {
-              console.log(line);
-              const listItem = document.createElement('li');
-              listItem.textContent = line;
-              instructionsArea.appendChild(listItem);
-            }
-          } else {
-            console.error("Element with ID 'instructionsList' not found.");
-
-          }
-        });
-      } else {
-        alert(`Error: ${response.statusText}`);
-      }
-    })
-  };
-
-function getRecipeList(item) {
-  let apiRecipeUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${item.replaceAll(' ', '_')}`;
-  fetch(apiRecipeUrl)
-    .then( function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          console.log(data);
-          displayRecipeOptions(data);
-          return data;
-        });
-      } else {
-        alert(`Error: ${response.statusText}`);
-      }
-    })
-};
-
-function displayRecipeOptions (data) {
-  // Need to empty the DOM HTML elements
-  let mealName = '';
-  let mealId = 0;
-  let mealImage = '';
-  // Using a for loop, create buttons that will show recipe name, recipe photo and a list of ingredients.
-  for (let i = 0; (i < 5) && (i < data.meals.length); i++) {
-    mealName = data.meals[i].strMeal;
-    mealId = data.meals[i].idMeal;
-    mealImage = data.meals[i].strMealThumb;
-    console.log(`${mealId} ${mealName} ${mealImage}`);
-  }
-};
-
-function getIngredients (mealId) {
-  let apiRecipeIdUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
-  let ingredientsList = [];
-  fetch(apiRecipeIdUrl)
-    .then( function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          for (let i = 1; i <= 20; i++) {
-            if (data.meals[0][`strIngredient${i}`] === '') {
-              break;
-            } else {
-              ingredientsList.push(data.meals[0][`strMeasure${i}`] + ' ' + data.meals[0][`strIngredient${i}`]);
-            }
-          }
-          console.log(ingredientsList);
-        });
-      } else {
-        alert(`Error: ${response.statusText}`);
-      }
-    })
-};
-
-function getRecipe (mealId) {
-  let apiRecipeIdUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
-  fetch(apiRecipeIdUrl)
-    .then( function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          console.log(data.meals[0].strInstructions);
-        });
-      } else {
-        alert(`Error: ${response.statusText}`);
-      }
-    })
-};
-
-getRecipeList(userQuery);
+const restaurantDiv = document.getElementById('restaurant-display');
+const dishForm = document.getElementById('dish-form');
+const userDish = document.getElementById('dish');
+const userSuburb = document.getElementById('suburb');
+const userCountry = document.getElementById('country');
+const restOptEl = document.getElementById('restaurant-options');
+const restDetsEl = document.getElementById('restaurant-details');
+const restFavEl = document.getElementById('restaurant-favs');
+let restFavs = JSON.parse(localStorage.getItem('restFavsList')) || [];
+let currentRest;
+let restOpts;
 
 function userRestaurantInquiry (dish, suburb, country) {
-// Mimi struggled with reading the documentation and asked Frank Fu for assistance
-  request = {
+  request = { // Mimi struggled with reading the documentation and asked Frank Fu for assistance
     textQuery: `${dish} in ${suburb} ${country})`,
-    fields: ["displayName", "businessStatus", 'formattedAddress', 'photos'],
+    fields: ["displayName", "businessStatus", 'formattedAddress', 'rating', 'priceLevel'],
     includedType: "restaurant",
     isOpenNow: true,
     language: "en-US",
-    maxResultCount: 5,
+    maxResultCount: 10,
     minRating: 3.5,
-
     useStrictTypeFiltering: false,
   };
-  //@ts-ignore
-
   let placeDetails;
-
-  var doSomething = async function () {
+  restOpts = [];
+  var retrieveRestaurantData = async function () {
     const { Place } = await google.maps.importLibrary("places");
     const { places } = await Place.searchByText(request);
-    console.log(places);
     for (const place of places) {
-      placeDetails = [place.Fg.displayName, place.Fg.formattedAddress];
-      console.log(placeDetails);
+      placeDetails = {
+        name: place.Fg.displayName,
+        address: place.Fg.formattedAddress, 
+        status: place.Fg.businessStatus,
+        price: place.Fg.priceLevel,
+        rating: place.Fg.rating
+      };
+      restOpts.push(placeDetails);
+      restaurantButton(placeDetails);
     }
   };
-
-  doSomething();
+  retrieveRestaurantData();
 };
 
+function restaurantButton (place) { // Create a button with Bulma classes and append it to the restaurant-options element.
+  const buttonDiv = document.createElement('div'), buttonEl = document.createElement('button');
+  buttonDiv.classList = 'field';
+  buttonEl.textContent = place.name;
+  buttonEl.classList = 'button is-centered';
+  buttonEl.setAttribute('restaurant-name', place.name.replaceAll(' ', ''));
+  restOptEl.appendChild(buttonDiv).appendChild(buttonEl);
+}
 
-userRestaurantInquiry(userDish, userSuburb, userCountry);
+function checkRestFav(placeName) { //**** */
+  return restFavs.some(function(obj) {
+    return obj.name.includes(placeName);
+  })
+} //**** */
+
+function showRestaurantDetails (place) { // PRINT RESTAURANT DETAILS
+  currentRest = place;
+  restDetsEl.innerHTML = '';
+  const buttonEl = document.createElement('button'), buttonI = document.createElement('i'), nameEl = document.createElement('h2'), addEl = document.createElement('p'), addInt = document.createElement('strong'), addDets = document.createElement('span'), statEl = document.createElement('p'), statInt = document.createElement('strong'), statDets = document.createElement('span'), rateEl = document.createElement('p'), rateInt = document.createElement('strong'), rateDets = document.createElement('span');
+  if (checkRestFav(place.name)) { //**** */
+    buttonI.classList = 'fas fa-star';
+    buttonEl.classList = 'button is-rounded is-centered has-text-warning favourited';
+  } else if (!checkRestFav(place.name)) { 
+    buttonI.classList = 'far fa-star';
+    buttonEl.classList = 'button is-rounded is-centered has-text-warning not-favourited';
+  } //**** */
+  buttonEl.appendChild(buttonI);
+  nameEl.textContent = place.name;
+  addInt.textContent = 'Address: ';
+  addDets.textContent = place.address;
+  addEl.append(addInt, addDets);
+  statInt.textContent = 'Status: ';
+  statDets.textContent = place.status.toLowerCase();
+  statEl.append(statInt, statDets);
+  rateInt.textContent = 'Rating: ';
+  rateDets.textContent = place.rating;
+  rateEl.append(rateInt, rateDets);
+  restDetsEl.append(nameEl, buttonEl, addEl, statEl, rateEl);
+  if (place.price !== null) {
+    const priceEl = document.createElement('p'), priceInt = document.createElement('strong'), priceDets = document.createElement('span');
+    priceInt.textContent = 'Affordability: ';
+    priceDets.textContent = place.price.toLowerCase();
+    priceEl.append(priceInt, priceDets);
+    restDetsEl.appendChild(priceEl);
+    }
+}
+
+function renderRestFavBtns () {
+  restFavEl.innerHTML = '';
+  for (const place of restFavs) {
+    const buttonDiv = document.createElement('div'), buttonEl = document.createElement('button');
+    buttonDiv.classList = 'field';
+    buttonEl.textContent = place.name;
+    buttonEl.classList = 'button is-centered';
+    buttonEl.setAttribute('restaurant-name', place.name.replaceAll(' ', ''));
+    restFavEl.appendChild(buttonDiv).appendChild(buttonEl);
+  }
+}
+
+function addRestFav (place) { // Create a button with Bulma classes and append it to the restaurant-options element.
+  restFavs.push(place);
+  localStorage.setItem('restFavsList', JSON.stringify(restFavs));
+  renderRestFavBtns();
+}
+
+function removeRestFav (place) {
+  for (let i = 0; i < restFavs.length; i++) {
+    if (place.name.replaceAll(' ', '') === restFavs[i].name.replaceAll(' ', '')) {
+      restFavs.splice(i, 1);
+    }
+  }
+  localStorage.setItem('restFavsList', JSON.stringify(restFavs));
+  renderRestFavBtns();
+}
+
+renderRestFavBtns();
+
+dishForm.addEventListener('click', function () { // Looks for when the form is submitted
+  restaurantDiv.classList.remove('is-hidden');
+  recipeDiv.classList.add('is-hidden'); // do not need to add an if statement as  it will not add the class if it already exists
+  if (userDish.value === '' || userSuburb.value === '' || userCountry.value === '') {
+    alert('Please make sure all fields are filled'); //If users leave the inquiries blank, it will alert the user and end the function
+    return;
+  }
+  restOptEl.innerHTML = ''; //empty the html elemenets
+  restDetsEl.innerHTML = '';
+  userRestaurantInquiry(userDish.value, userSuburb.value, userCountry.value); //run the function to display the restaurant options
+  userDish.value = ''; // empty the form elements
+  userSuburb.value = '';
+  userCountry.value = '';
+})
+
+restOptEl.addEventListener('click', function (event) {
+  if (event.target.classList.contains('button')) { // look for when the restaurant buttons are pressed
+    const restName = event.target.getAttribute('restaurant-name');
+    for (let i = 0; i < restOpts.length; i++) {
+      if (restOpts[i].name.replaceAll(' ', '') === restName) {
+        showRestaurantDetails(restOpts[i]); // it will show the specific restaurant
+      }
+    }
+  }
+})
+
+restFavEl.addEventListener('click', function (event) {
+  if (event.target.classList.contains('button')) { // look for when the restaurant buttons are pressed
+    const restName = event.target.getAttribute('restaurant-name');
+    for (let i = 0; i < restFavs.length; i++) {
+      if (restFavs[i].name.replaceAll(' ', '') === restName) {
+        showRestaurantDetails(restFavs[i]); // it will show the specific restaurant
+      }
+    }
+  }
+})
+
+restDetsEl.addEventListener('click', function (event) { // add to favourites
+  if (event.target.classList.contains('not-favourited')||event.target.classList.contains('far')) { // look for when the restaurant buttons are pressed
+    addRestFav(currentRest); // it will show the specific restaurant
+    showRestaurantDetails(currentRest);
+  } else if (event.target.classList.contains('favourited')||event.target.classList.contains('fas')) {
+    removeRestFav(currentRest); // it will show the specific restaurant
+    showRestaurantDetails(currentRest);
+  }
+})
 
 // modal scripts
 document.addEventListener('DOMContentLoaded', () => {
