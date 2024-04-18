@@ -1,4 +1,5 @@
 const restaurantDiv = document.getElementById('restaurant-display');
+const recipeDiv = document.getElementById('recipe-display');
 const dishForm = document.getElementById('dish-form');
 const userDish = document.getElementById('dish');
 const userSuburb = document.getElementById('suburb');
@@ -9,6 +10,15 @@ const restFavEl = document.getElementById('restaurant-favs');
 let restFavs = JSON.parse(localStorage.getItem('restFavsList')) || [];
 let currentRest;
 let restOpts;
+
+let userQuery = "tomato";
+let dish = 'pizza';
+// Pseduo Recipies Carousel
+let recipeData = [];
+let favRecipes = JSON.parse(localStorage.getItem("favourites")) || [];
+// This index is for the Pseduo Carousel
+let recipeIndex = 0;
+let favRecipeIndex = 0;
 
 function userRestaurantInquiry (dish, suburb, country) {
   request = { // Mimi struggled with reading the documentation and asked Frank Fu for assistance
@@ -164,14 +174,6 @@ restDetsEl.addEventListener('click', function (event) { // add to favourites
     showRestaurantDetails(currentRest);
   }
 })
-let userQuery = "tomato";
-let dish = 'pizza';
-// Pseduo Recipies Carousel
-let recipeData = [];
-let favRecipes = JSON.parse(localStorage.getItem("favourites")) || [];
-// This index is for the Pseduo Carousel
-let recipeIndex = 0;
-let favRecipeIndex = 0;
 
 
 function getRecipeList(item) {
