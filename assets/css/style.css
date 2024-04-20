@@ -63,9 +63,15 @@ i {
     color: var(--popColor)
 }
 
+#favItems, #restaurant-favs, #restaurant-options{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .favButton {
-    margin-bottom: 0.5rem;
-    width: 300px;
+    margin-top: 0.5rem;
+    min-width: 200px;
 }
 
 .button:hover {
@@ -103,6 +109,11 @@ i {
     position: relative;
     top: 165px;
 }
+
+/* .field {
+    display: flex;
+    align-items: center;
+} */
 
 /* .column {
     display: flex;
