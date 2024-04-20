@@ -63,6 +63,10 @@ i {
     color: var(--popColor)
 }
 
+#favouriteItem {
+    color: var(--popColor);
+}
+
 #favItems, #restaurant-favs, #restaurant-options{
     display: flex;
     flex-direction: column;
