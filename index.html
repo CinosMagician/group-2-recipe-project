@@ -69,24 +69,24 @@
       </div>
       <!-- -------------------------------Restaurant Section------------------------------- -->
       <div
-        class="columns is-centered is-mobile is-variable is-3 is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd is-hidden"
+        class="columns is-centered is-mobile is-variable is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd is-hidden"
         id="restaurant-display">
         <div class="column is-small">
           <div class="notification m-3 p-6">
-            <h2>Favourites</h2>
-            <div id="restaurant-favs">This is where the favourite restaurants appear</div>
+            <h2 class="title is-8 has-text-centered">Favourites</h2>
+            <div class="subtitle" id="restaurant-favs"></div>
           </div>
         </div>
         <div class="column is-small">
           <div class="notification m-3 p-6">
-            <h2 class="title is-6">Restaurant Options</h2>
-            <div id="restaurant-options"></div>
+            <h2 class="title is-8 has-text-centered">Restaurant Options</h2>
+            <div class="subtitle" id="restaurant-options"></div>
           </div>
         </div>
         <div class="column is-small">
           <div class="notification m-3 p-6">
-            <h2 class="title is-6">Restaurant Details</h2>
-            <div id="restaurant-details"></div>
+            <h2 class="title is-8 has-text-centered">Restaurant Details</h2>
+            <div class="subtitle" id="restaurant-details"></div>
           </div>
         </div>
       </div>
@@ -201,7 +201,7 @@
   <!-- Mimi struggled with reading the documentation and asked Frank Fu for assistance -->
   <script>
     (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
-      key: 'AIzaSyAi3zf-pBvF0jpkEuRsq48SEsOGGl3dYBI',
+      key: 'AIzaSyBWhZsM7ODVoUhE2kvx8i1DYjyNJPCaHFg',
       v: "weekly",
       // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
       // Add other bootstrap parameters as needed, using camel case.
