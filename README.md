@@ -39,8 +39,8 @@ THEN the information is stored client side
 >> - script.js
 >> logo
 >> - reciplace logo img icon 500 x 500
-- index.html
-- README.md
+> - index.html
+> - README.md
 
 ## Usage
 
@@ -49,6 +49,7 @@ THEN the information is stored client side
 - CSS  
 - Bulma CSS - The Modern CSS Framework  
 - JavaScript
+- Modal Forms
 - Font Awesome
 - Favicon
 - Canva
@@ -62,6 +63,7 @@ API
 Background Colour - #DBDFDB
 Font Type - "Montserrat", sans-serif, Serif;
 Font colours - #000023 & #FE6400
+Modal Forms
 
 
 ## Credits
