@@ -12,6 +12,7 @@ const recipeCardLocation = document.getElementById("recipeCard");
 const ingredientArea = document.getElementById("recipeIngredients");
 const instructionsArea = document.getElementById("instructionsList");
 const ingredientForm = document.getElementById("ingredient-form");
+const bgImage = document.getElementById("backgroundImageHolder")
 let restFavs = JSON.parse(localStorage.getItem('restFavsList')) || [];
 let currentRest;
 let restOpts;
@@ -24,6 +25,7 @@ let recipeIndex = 0;
 let favRecipeIndex = 0;
 
 ingredientForm.addEventListener('click', function () { // Looks for when the form is submitted
+  bgImage.classList.add('is-hidden');
   restaurantDiv.classList.add('is-hidden');
   recipeDiv.classList.remove('is-hidden'); // do not need to add an if statement as  it will not add the class if it already exists
   if (userQuery.value === '') {
@@ -85,7 +87,7 @@ function checkRestFav(placeName) { //**** */
 function showRestaurantDetails (place) { // PRINT RESTAURANT DETAILS
   currentRest = place;
   restDetsEl.innerHTML = '';
-  const buttonEl = document.createElement('button'), buttonI = document.createElement('i'), nameEl = document.createElement('h2'), addEl = document.createElement('p'), addInt = document.createElement('strong'), addDets = document.createElement('span'), statEl = document.createElement('p'), statInt = document.createElement('strong'), statDets = document.createElement('span'), rateEl = document.createElement('p'), rateInt = document.createElement('strong'), rateDets = document.createElement('span');
+  const buttonEl = document.createElement('button'), buttonI = document.createElement('i'), nameEl = document.createElement('h2'), addEl = document.createElement('div'), addInt = document.createElement('strong'), addDets = document.createElement('span'), statEl = document.createElement('div'), statInt = document.createElement('strong'), statDets = document.createElement('span'), rateEl = document.createElement('div'), rateInt = document.createElement('strong'), rateDets = document.createElement('span');
   if (checkRestFav(place.name)) { //**** */
     buttonI.classList = 'fas fa-star';
     buttonEl.classList = 'button is-rounded is-centered has-text-warning favourited';
@@ -95,6 +97,7 @@ function showRestaurantDetails (place) { // PRINT RESTAURANT DETAILS
   } //**** */
   buttonEl.appendChild(buttonI);
   nameEl.textContent = place.name;
+  nameEl.classList = 'has-text-centered'
   addInt.textContent = 'Address: ';
   addDets.textContent = place.address;
   addEl.append(addInt, addDets);
@@ -106,7 +109,7 @@ function showRestaurantDetails (place) { // PRINT RESTAURANT DETAILS
   rateEl.append(rateInt, rateDets);
   restDetsEl.append(nameEl, buttonEl, addEl, statEl, rateEl);
   if (place.price !== null) {
-    const priceEl = document.createElement('p'), priceInt = document.createElement('strong'), priceDets = document.createElement('span');
+    const priceEl = document.createElement('div'), priceInt = document.createElement('strong'), priceDets = document.createElement('span');
     priceInt.textContent = 'Affordability: ';
     priceDets.textContent = place.price.toLowerCase();
     priceEl.append(priceInt, priceDets);
@@ -144,6 +147,7 @@ function removeRestFav (place) {
 renderRestFavBtns();
 
 dishForm.addEventListener('click', function () { // Looks for when the form is submitted
+  bgImage.classList.add('is-hidden');
   restaurantDiv.classList.remove('is-hidden');
   recipeDiv.classList.add('is-hidden'); // do not need to add an if statement as  it will not add the class if it already exists
   if (userDish.value === '' || userSuburb.value === '' || userCountry.value === '') {
@@ -197,8 +201,8 @@ function getRecipeList(item) {
     .then( function (response) {
       if (response.ok) {
         response.json().then(function (data) {
-          console.log(data);
           generateRecipeData(data);
+          generateFavouriteRecipiesBtn();
           return data;
         });
       } else {
@@ -206,10 +210,6 @@ function getRecipeList(item) {
       }
     })
 };
-
-
-
-// Changed the name to match function purpose
 
 function generateRecipeData (data) {
   // Need to empty the DOM HTML elements
@@ -230,15 +230,11 @@ function generateRecipeData (data) {
   return recipeData;
 };
 
-// New function to read the recipies from previous function
-
 function displayRecipeData(recipeData, recipeIndex) {
-  console.log(recipeData[recipeIndex]);
-
   const recipeCardLocation = document.getElementById("recipeCard");
   recipeCardLocation.innerHTML = `
   <h1>${recipeData[recipeIndex].mealName}
-    <button class="js-nextbtn-trigger tooltip" data-target="favouriteItem" id="favouriteItem">⭐
+    <button class="js-nextbtn-trigger tooltip far fa-star" data-target="favouriteItem" id="favouriteItem">
       <span class="tooltiptext">Add or Remove From Favourites</span>
     </button>
   </h1>
@@ -251,6 +247,12 @@ function displayRecipeData(recipeData, recipeIndex) {
   <ul id="recipeIngredients"></ul>
   `;
 
+  let recipeFavBtn = document.getElementById("favouriteItem");
+  for(let i = 0; i < favRecipes.length; i++){
+    if (recipeData[recipeIndex].mealName === favRecipes[i].mealName){
+      recipeFavBtn.classList = 'js-nextbtn-trigger tooltip fas fa-star';
+    }
+  };
   // Button Control for Next and Prev
   (document.querySelectorAll('.js-nextbtn-trigger') || []).forEach(($trigger) => {
     const btn = $trigger.dataset.target;
@@ -283,8 +285,6 @@ function nextIndex(){
     recipeIndex++;
   }
   displayRecipeData(recipeData, recipeIndex);
-  console.log(recipeIndex);
-  console.log(`next`);
 };
 
 function prevIndex(){
@@ -294,28 +294,25 @@ function prevIndex(){
     recipeIndex--;
   }
   displayRecipeData(recipeData, recipeIndex);
-  console.log(recipeIndex);
-  console.log(`prev`);
 };
 // End of Next and Prev Functions
 
 // add Fav Function
 function addFav(){
+  let recipeFavBtn = document.getElementById("favouriteItem");
   let newFav = recipeData[recipeIndex];
   for (let i = 0; i < favRecipes.length; i++){
     if (newFav.mealName === favRecipes[i].mealName){
+      recipeFavBtn.classList = 'js-nextbtn-trigger tooltip far fa-star';
       favRecipes.splice(i, 1);
       localStorage.setItem("favourites", JSON.stringify(favRecipes));
-      alert(`Removed from Favourites`);
-      console.log(`Removed`);
       generateFavouriteRecipiesBtn();
       return;
     }
   }
   favRecipes.push(newFav);
+  recipeFavBtn.classList = 'js-nextbtn-trigger tooltip fas fa-star';
   localStorage.setItem("favourites", JSON.stringify(favRecipes));
-  console.log(`Added`);
-  alert(`Added to Favourites`);
   generateFavouriteRecipiesBtn();
 };
 // add Fav Function End
@@ -339,12 +336,9 @@ function generateFavouriteRecipiesBtn(){
     $trigger.addEventListener('click', () => {
       for (let i = 0; i < favRecipes.length; i++){
         if(favBtn === favRecipes[i].mealName){
-          console.log(`Found at index:${i}`);
           favRecipeIndex = i;
           displayFavRecipeData(favRecipes, favRecipeIndex);
           return;
-        } else {
-          console.log(`Not Found at index:${i}`);
         }
       }
     });
@@ -368,8 +362,6 @@ function nextFavIndex(){
     favRecipeIndex++;
   }
   displayFavRecipeData(favRecipes, favRecipeIndex);
-  console.log(favRecipeIndex);
-  console.log(`next`);
 };
 
 function prevFavIndex(){
@@ -379,8 +371,6 @@ function prevFavIndex(){
     favRecipeIndex--;
   }
   displayFavRecipeData(favRecipes, favRecipeIndex);
-  console.log(favRecipeIndex);
-  console.log(`prev`);
 };
 // End of Next and Prev Fav Functions
 
@@ -391,8 +381,6 @@ function favAddFav(){
     if (newFav.mealName === favRecipes[i].mealName){
       favRecipes.splice(i, 1);
       localStorage.setItem("favourites", JSON.stringify(favRecipes));
-      alert(`Removed from Favourites`);
-      console.log(`Removed`);
       generateFavouriteRecipiesBtn();
       // This checks to see if the index is at 0 and also if the length is at 0 to clear all data
       if(favRecipeIndex === 0 && favRecipes.length === 0){
@@ -401,42 +389,32 @@ function favAddFav(){
         recipeCardLocation.innerHTML = ``;
         instructionsArea.innerHTML = ``;
         favRecipeIndex = 0;
-        console.log(`no items left in fav`);
-        console.log(favRecipes, favRecipeIndex);
         return;
         // this checks if the index is 0 but not an empty favRecipies Array
       } else if (favRecipeIndex === 0){
           favRecipeIndex = favRecipes.length - 1;
           displayFavRecipeData(favRecipes, favRecipeIndex);
-          console.log(`first item was removed, moving to last item`);
-          console.log(favRecipes, favRecipeIndex);
           return;
       } else {
           // Otherwise it will just go to the previous fav item.
           favRecipeIndex = favRecipeIndex - 1;
           displayFavRecipeData(favRecipes, favRecipeIndex);
-          console.log(`moving to previous fav item`);
-          console.log(favRecipes, favRecipeIndex);
           return;
       }
     }
   }
   favRecipes.push(newFav);
   localStorage.setItem("favourites", JSON.stringify(favRecipes));
-  console.log(`Added`);
-  alert(`Added to Favourites`);
   generateFavouriteRecipiesBtn();
 };
 // Fav in favdata Function End
 
 
 function displayFavRecipeData(favRecipes, favRecipeIndex) {
-  console.log(favRecipes[favRecipeIndex]);
-
   const recipeCardLocation = document.getElementById("recipeCard");
   recipeCardLocation.innerHTML = `
   <h1>${favRecipes[favRecipeIndex].mealName}
-    <button class="js-btn-trigger tooltip" data-target="favouriteItem" id="favouriteItem">⭐
+    <button class="js-btn-trigger tooltip fas fa-star" data-target="favouriteItem" id="favouriteItem">
       <span class="tooltiptext">Add or Remove From Favourites</span>
     </button>
   </h1>
@@ -464,7 +442,6 @@ function displayFavRecipeData(favRecipes, favRecipeIndex) {
   getRecipe(favRecipes[favRecipeIndex].mealId);
   getIngredients(favRecipes[favRecipeIndex].mealId);
 };
-
 // Function to generate from the favs list
 
 
@@ -482,8 +459,6 @@ function getIngredients (mealId) {
               ingredientsList.push(data.meals[0][`strMeasure${i}`] + ' ' + data.meals[0][`strIngredient${i}`]);
             }
           }
-
-          // New Code
           const ingredientArea = document.getElementById("recipeIngredients");
           for (let instruction = 0; instruction < ingredientsList.length; instruction++){
             const instructionItem = document.createElement('li');
@@ -491,9 +466,6 @@ function getIngredients (mealId) {
             instructionItem.textContent = ingredientsList[instruction];
             ingredientArea.appendChild(instructionItem);
           }
-          // New Code
-
-          console.log(ingredientsList);
         });
       } else {
         alert(`Error: ${response.statusText}`);
@@ -507,8 +479,6 @@ function getRecipe (mealId) {
     .then( function (response) {
       if (response.ok) {
         response.json().then(function (data) {
-          console.log(data.meals[0].strInstructions);
-
           // Code for placing the instructions on the page
           const instructionsArea = document.getElementById("instructionsList");
           if (instructionsArea) {
@@ -516,7 +486,6 @@ function getRecipe (mealId) {
 
             let splitLines = data.meals[0].strInstructions.match(/[^\r\n]+/g);
             for (const line of splitLines) {
-              console.log(line);
               const listItem = document.createElement('li');
               listItem.classList.add("has-text-left");
               listItem.textContent = line;
@@ -532,20 +501,6 @@ function getRecipe (mealId) {
       }
     })
   };
-
-// Manual Function calls
-// getRecipeList(userQuery);
-generateFavouriteRecipiesBtn();
-
-
-// TEST FUNCTION REMOVE LATER
-(document.querySelectorAll('.js-test-trigger') || []).forEach(($trigger) => {
-  const testing = $trigger.dataset.target;
-  $trigger.addEventListener('click', () => {
-    getRecipeList(userQuery);
-  });
-});
-// TEST FUNCTION REMOVE LATER
 
 // modal scripts
 document.addEventListener('DOMContentLoaded', () => {
