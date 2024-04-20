@@ -1,13 +1,10 @@
 # RECIPLACE
 
-
-
 ## Description
 This is a website where users can search for recipes and view restuarant locations for inspiration. It includes building a 
 
-
-
 ## Deployment Link
+https://cinosmagician.github.io/group-2-recipe-project/
 
 ### User Story
 AS A marketing student,
