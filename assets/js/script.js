@@ -13,6 +13,7 @@ const ingredientArea = document.getElementById("recipeIngredients");
 const instructionsArea = document.getElementById("instructionsList");
 const ingredientForm = document.getElementById("ingredient-form");
 const bgImage = document.getElementById("backgroundImageHolder")
+const favBtnArea = document.getElementById("favItems");
 let restFavs = JSON.parse(localStorage.getItem('restFavsList')) || [];
 let currentRest;
 let restOpts;
@@ -248,9 +249,11 @@ function displayRecipeData(recipeData, recipeIndex) {
   `;
 
   let recipeFavBtn = document.getElementById("favouriteItem");
-  for(let i = 0; i < favRecipes.length; i++){
-    if (recipeData[recipeIndex].mealName === favRecipes[i].mealName){
-      recipeFavBtn.classList = 'js-nextbtn-trigger tooltip fas fa-star';
+  if(favRecipes.length > 0){
+    for(let i = 0; i < favRecipes.length; i++){
+      if (recipeData[recipeIndex].mealName === favRecipes[i].mealName){
+        recipeFavBtn.classList = 'js-nextbtn-trigger tooltip fas fa-star';
+      }
     }
   };
   // Button Control for Next and Prev
@@ -318,7 +321,6 @@ function addFav(){
 // add Fav Function End
 
 function generateFavouriteRecipiesBtn(){
-  const favBtnArea = document.getElementById("favItems");
   favBtnArea.innerHTML = ``;
   for (let i = 0; i < favRecipes.length; i++){
     // const favBtnArea = document.getElementById("favItems");
@@ -385,10 +387,12 @@ function favAddFav(){
       // This checks to see if the index is at 0 and also if the length is at 0 to clear all data
       if(favRecipeIndex === 0 && favRecipes.length === 0){
         // Run a function that hides all data, just hard coding everything to be blank for now
-        ingredientArea.innerHTML = ``;
+        favBtnArea.innerHTML = ``;
         recipeCardLocation.innerHTML = ``;
         instructionsArea.innerHTML = ``;
         favRecipeIndex = 0;
+        recipeDiv.classList.add('is-hidden');
+        bgImage.classList.remove('is-hidden');
         return;
         // this checks if the index is 0 but not an empty favRecipies Array
       } else if (favRecipeIndex === 0){
