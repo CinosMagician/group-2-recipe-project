@@ -74,7 +74,7 @@ function userRestaurantInquiry (dish, suburb, country) {
 function restaurantButton (place) { // Create a button with Bulma classes and append it to the restaurant-options element.
   const buttonEl = document.createElement('button');
   buttonEl.textContent = place.name;
-  buttonEl.classList = 'button is-centered favButton';
+  buttonEl.classList = 'button is-centered is-fullwidth custom-btn favButton';
   buttonEl.setAttribute('restaurant-name', place.name.replaceAll(' ', ''));
   restOptEl.appendChild(buttonEl);
 }
@@ -123,7 +123,7 @@ function renderRestFavBtns () {
   for (const place of restFavs) {
     const buttonEl = document.createElement('button');
     buttonEl.textContent = place.name;
-    buttonEl.classList = 'button is-centered favButton';
+    buttonEl.classList = 'button is-centered is-fullwidth custom-btn favButton';
     buttonEl.setAttribute('restaurant-name', place.name.replaceAll(' ', ''));
     restFavEl.appendChild(buttonEl);
   }

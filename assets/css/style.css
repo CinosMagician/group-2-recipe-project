@@ -169,3 +169,7 @@ i {
     visibility: visible;
     opacity: 1;
   }
+
+  .custom-btn {
+    white-space: normal;
+  }
