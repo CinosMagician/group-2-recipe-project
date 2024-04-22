@@ -79,26 +79,25 @@ function restaurantButton (place) { // Create a button with Bulma classes and ap
   restOptEl.appendChild(buttonEl);
 }
 
-function checkRestFav(placeName) { //**** */
-  return restFavs.some(function(obj) {
-    return obj.name.includes(placeName);
-  })
-} //**** */
-
 function showRestaurantDetails (place) { // PRINT RESTAURANT DETAILS
   currentRest = place;
   restDetsEl.innerHTML = '';
-  const buttonEl = document.createElement('button'), buttonI = document.createElement('i'), nameEl = document.createElement('h2'), addEl = document.createElement('div'), addInt = document.createElement('strong'), addDets = document.createElement('span'), statEl = document.createElement('div'), statInt = document.createElement('strong'), statDets = document.createElement('span'), rateEl = document.createElement('div'), rateInt = document.createElement('strong'), rateDets = document.createElement('span');
-  if (checkRestFav(place.name)) { //**** */
+  const buttonEl = document.createElement('button'), buttonI = document.createElement('i'), nameEl = document.createElement('h2'), restDetsDiv = document.createElement('div'), addEl = document.createElement('div'), addInt = document.createElement('strong'), addDets = document.createElement('span'), statEl = document.createElement('div'), statInt = document.createElement('strong'), statDets = document.createElement('span'), rateEl = document.createElement('div'), rateInt = document.createElement('strong'), rateDets = document.createElement('span');
+  function checkRestFav(placeName) {
+    return restFavs.some(function(obj) {
+      return obj.name.includes(placeName);
+    })
+  }
+  if (checkRestFav(place.name)) {
     buttonI.classList = 'fas fa-star';
-    buttonEl.classList = 'button is-rounded is-centered has-text-warning favourited';
+    buttonEl.classList = 'button is-rounded favourited';
   } else if (!checkRestFav(place.name)) { 
     buttonI.classList = 'far fa-star';
-    buttonEl.classList = 'button is-rounded is-centered has-text-warning not-favourited';
-  } //**** */
+    buttonEl.classList = 'button is-rounded not-favourited';
+  }
   buttonEl.appendChild(buttonI);
   nameEl.textContent = place.name;
-  nameEl.classList = 'has-text-centered'
+  restDetsDiv.classList = 'has-text-left'
   addInt.textContent = 'Address: ';
   addDets.textContent = place.address;
   addEl.append(addInt, addDets);
@@ -108,13 +107,14 @@ function showRestaurantDetails (place) { // PRINT RESTAURANT DETAILS
   rateInt.textContent = 'Rating: ';
   rateDets.textContent = place.rating;
   rateEl.append(rateInt, rateDets);
-  restDetsEl.append(nameEl, buttonEl, addEl, statEl, rateEl);
+  restDetsDiv.append(addEl, statEl, rateEl);
+  restDetsEl.append(nameEl, buttonEl, restDetsDiv);
   if (place.price !== null) {
     const priceEl = document.createElement('div'), priceInt = document.createElement('strong'), priceDets = document.createElement('span');
     priceInt.textContent = 'Affordability: ';
     priceDets.textContent = place.price.toLowerCase();
     priceEl.append(priceInt, priceDets);
-    restDetsEl.appendChild(priceEl);
+    restDetsDiv.appendChild(priceEl);
     }
 }
 
